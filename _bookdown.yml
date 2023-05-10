@@ -5,7 +5,6 @@ rmd_files:
   [
     "index.Rmd",
     "01-intro.Rmd",
-    "02-chapter_of_course.Rmd",
     "01-week.Rmd",
     "About.Rmd",
     "References.Rmd",
