@@ -4,7 +4,7 @@ In this overview module, we'll go over some information and resources to help yo
 ## Welcome
 ### Welcome to Developing Data Products
 
-<iframe src="https://d3c33hcgiwev3.cloudfront.net/L2SX8HtfEeazqQoyai5dlw.processed/full/540p/index.webm?Expires=1683763200&amp;Signature=eC2FOXIFOyLIyWriS7R6sydKMTWRiZNrKAp2SJf08uWR-XbwHQ9PQ4xJNG3b5uQvJNb6Dsuc-CWHX8EjOKArC0Fdav8Rg7YZDz3vHFufBkVius3hn1v4nVx1foPud9u~99WXLZ5OiZ9kL9jXo-2XHZHdTEm1OanQfpRgg90qXtI_&amp;Key-Pair-Id=APKAJLTNE6QMUY6HBC5A" width="672" height="400px"></iframe>
+![](https://d3c33hcgiwev3.cloudfront.net/L2SX8HtfEeazqQoyai5dlw.processed/full/540p/index.webm?Expires=1684022400&Signature=S3cV7vbzx~kl3x5HSkd1mQBhVSz-Q6CccfC9BJfLyY9kmjYcJr~dEhC0jRIboAh-MHbyiMxYNAv-37XLgI3SBN-oGdcRAClFF6fM4zzc-cxw7LgDBO69nThIzFEAWSFxOBl3I4ttfJQQGRKOB2GG5LwUkzv~3WIq~3JFfS0V12M_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A){width="560" height="315"}
 
 ### A Note of Explanation
 
