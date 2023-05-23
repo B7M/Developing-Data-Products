@@ -34,6 +34,10 @@ shiny-2.3
 shiny-2.4
 shiny-2.5
 shiny-2.6
+shiny-part-3
+shinyuieditor
+css-in-shiny
+layouts
 shiny-gadgets
 shiny-gadgets-1.1
 shiny-gadgets-1.2
