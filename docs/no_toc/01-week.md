@@ -398,7 +398,7 @@ When we run the code, we can move the slider and see the slider value displayed.
 
 
 ```{=html}
-<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+<div style="width: 100% ; height: 500px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 ```
 
 It's important to note that there's nothing special about having the slider in the side bar panel and the text in the main panel.
