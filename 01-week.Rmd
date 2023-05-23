@@ -437,7 +437,7 @@ If your gadget is generating multiple outputs such as graphs, tables, maps, etc.
 #### fillRow/fillCol
 These functions are beneficial for partitioning an area into rows and columns that dynamically expand and contract in proportion to fill the available space. Unlike fluidRow and col functions, which do not adjust, fillRow/fillCol offer growth and shrinkage capabilities.You can get creative with these functions and use them to create a variety of layouts for your gadget.
 For example 
-```{r}
+```{r, eval=FALSE, echo=T}
 fillRow(
   fillCol(a, b),
   fillCol(c, d, e)
