@@ -397,27 +397,28 @@ In the UI.R, in the main Panel, we specify that the slider value is displayed an
 This ensures that the same text we labeled from the output in the server function will be displayed in the name panels.
 When we run the code, we can move the slider and see the slider value displayed.
 
-```{r, eval=T, echo=F}
-library(shiny)
-ui<-fluidPage(
-  titlePanel("Slider App"), 
-  sidebarLayout(
-    sidebarPanel(
-      h1("Move the Slider!"),
-      sliderInput("slider1", "Slide Me!", 0, 100, 0)
-    ), 
-    mainPanel(
-      h3("Slider Value:"),
-      textOutput("text") 
-    )
-  ) 
+```{r, echo=F}
+shinyApp(
+  ui<-fluidPage(
+    titlePanel("Slider App"), 
+    sidebarLayout(
+      sidebarPanel(
+        h1("Move the Slider!"),
+        sliderInput("slider1", "Slide Me!", 0, 100, 0)
+      ), 
+      mainPanel(
+        h3("Slider Value:"),
+        textOutput("text") 
+      )
+    ) 
+  ),
+
+  server<- function(input, output) {
+    output$text <- renderText(input$slider1) 
+  },
+  options = list(height = 500)
 )
 
-server<- function(input, output) {
-  output$text <- renderText(input$slider1) 
-}
-
-shinyApp(ui, server)
 ```
 
 It's important to note that there's nothing special about having the slider in the side bar panel and the text in the main panel.
