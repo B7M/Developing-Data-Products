@@ -6,6 +6,7 @@ In this overview module, we'll go over some information and resources to help yo
 ottrpal::set_knitr_image_path()
 ```
 ```{r, include = FALSE}
+install.packages("shiny")
 library(shiny)
 ```
 
