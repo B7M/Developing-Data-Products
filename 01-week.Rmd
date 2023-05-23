@@ -272,8 +272,7 @@ shinyServer(function(input, output) {
 
 In Shiny, a function needs to have curly braces and it needs to be closed with both curly braces and the shiny server parenthesis. The function takes input from the UI, which is the shiny UI function. The function takes in $slider and renders it, displaying the text. We can name the output text. In the UI.R, in the main Panel, we specify that the slider value is displayed and the text output is text. This ensures that the same text we labeled from the output in the server function will be displayed in the name panels. When we run the code, we can move the slider and see the slider value displayed.
 ```{r, eval=T, echo=F}
-ui<-library(shiny)
-shinyUI(fluidPage(
+ui<-fluidPage(
   titlePanel("Slider App"), 
   sidebarLayout(
     sidebarPanel(
@@ -285,7 +284,7 @@ shinyUI(fluidPage(
       textOutput("text") 
     )
   ) 
-))
+)
 
 server<- function(input, output) {
   output$text <- renderText(input$slider1) 
