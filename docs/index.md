@@ -1,5 +1,5 @@
 ---
-title: "Data Product"
+title: "Developing Data Products"
 date: "May, 2023"
 site: bookdown::bookdown_site
 documentclass: book
@@ -14,13 +14,4 @@ output:
 ---
 
 # About this Course {-}
-
-
-## Available course formats
-
-This course is available in multiple formats which allows you to take it in the way that best suites your needs. You can take it for certificate which can be for free or fee.
-
-- The material for this course can be viewed without login requirement on this [Bookdown website](LINK HERE). This format might be most appropriate for you if you rely on screen-reader technology.
-- This course can be taken for [free certification through Leanpub](LINK HERE).
-- This course can be taken on [Coursera for certification here](LINK HERE) (but it is not available for free on Coursera).
-- Our courses are open source, you can find the [source material for this course on GitHub](LINK HERE).
+A data product is the production output from a statistical analysis. Data products automate complex analysis tasks or use technology to expand the utility of a data informed model, algorithm or inference. This course covers the basics of creating data products using Shiny, R packages, and interactive graphics. The course will focus on the statistical fundamentals of creating a data product that can be used to tell a story about data to a mass audience.
