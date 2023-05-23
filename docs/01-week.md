@@ -328,18 +328,6 @@ The UI also includes an id of brush1 and the brushOpts for the brush options. We
 
 We have run the application and observed that when no model is fit, the text output for slope and intercept correctly shows "No Model Found". If a cluster of points is highlighted, the slope and intercept are calculated and displayed as a line. If no points are selected, the text output again shows "No Model Found". A line is also displayed when all the data points are selected. This example shows the use of Shiny for creating interactive graphs. We encourage you to try to recreate this example and also create your own interactive graph using one of R's built-in datasets. Shiny has many uses, including input and output of data frames, as well as embedding RGL and RS 3D graphics library in a Shiny webpage using WebGL. Although these advanced features may be more specialized, you now have enough knowledge to get started and incorporate Shiny into your toolkit.
 
-
-## Shiny Part 3
-
-### ShinyUiEditor
-
-### CSS in Shiny
-
-
-### Layouts
-
-
-
 ## Shiny Gadgets
 
 ### Shiny Gadgets 1.1
