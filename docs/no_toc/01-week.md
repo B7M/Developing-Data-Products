@@ -273,27 +273,6 @@ shinyServer(function(input, output) {
 In Shiny, a function needs to have curly braces and it needs to be closed with both curly braces and the shiny server parenthesis. The function takes input from the UI, which is the shiny UI function. The function takes in $slider and renders it, displaying the text. We can name the output text. In the UI.R, in the main Panel, we specify that the slider value is displayed and the text output is text. This ensures that the same text we labeled from the output in the server function will be displayed in the name panels. When we run the code, we can move the slider and see the slider value displayed.
 
 ```{=html}
-<div class="container-fluid">
-<h2>Slider App</h2>
-<div class="row">
-<div class="col-sm-4">
-<form class="well">
-<h1>Move the Slider!</h1>
-<div class="form-group shiny-input-container">
-<label class="control-label" for="slider1">Slide Me!</label>
-<input class="js-range-slider" id="slider1" data-min="0" data-max="100" data-from="0" data-step="1" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
-</div>
-</form>
-</div>
-<div class="col-sm-8">
-<h3>Slider Value:</h3>
-<div id="text" class="shiny-text-output"></div>
-</div>
-</div>
-</div>
-```
-
-```{=html}
 <div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 ```
 

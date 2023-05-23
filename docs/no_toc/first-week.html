@@ -51,15 +51,6 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<link href="shared/ionrangeslider/css/ion.rangeSlider.css" rel="stylesheet" />
-<link href="shared/ionrangeslider/css/ion.rangeSlider.skinShiny.css" rel="stylesheet" />
-<script src="shared/ionrangeslider/js/ion.rangeSlider.min.js"></script>
-<script src="shared/strftime/strftime-min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.4.1/css/bootstrap.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.4.1/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.4.1/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.4.1/shim/respond.min.js"></script>
 
 
 <style type="text/css">
@@ -494,24 +485,6 @@ While the app is running if you click on <strong>Open in Browser</strong>, it wi
 <span id="cb5-3"><a href="first-week.html#cb5-3" aria-hidden="true" tabindex="-1"></a>  output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderText</span>(input<span class="sc">$</span>slider1) </span>
 <span id="cb5-4"><a href="first-week.html#cb5-4" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
 <p>In Shiny, a function needs to have curly braces and it needs to be closed with both curly braces and the shiny server parenthesis. The function takes input from the UI, which is the shiny UI function. The function takes in $slider and renders it, displaying the text. We can name the output text. In the UI.R, in the main Panel, we specify that the slider value is displayed and the text output is text. This ensures that the same text we labeled from the output in the server function will be displayed in the name panels. When we run the code, we can move the slider and see the slider value displayed.</p>
-<div class="container-fluid">
-<h2>Slider App</h2>
-<div class="row">
-<div class="col-sm-4">
-<form class="well">
-<h1>Move the Slider!</h1>
-<div class="form-group shiny-input-container">
-<label class="control-label" for="slider1">Slide Me!</label>
-<input class="js-range-slider" id="slider1" data-min="0" data-max="100" data-from="0" data-step="1" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
-</div>
-</form>
-</div>
-<div class="col-sm-8">
-<h3>Slider Value:</h3>
-<div id="text" class="shiny-text-output"></div>
-</div>
-</div>
-</div>
 <div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
 <p>It’s important to note that there’s nothing special about having the slider in the side bar panel and the text in the main panel. The order isn’t significant either. The code for the slider and the output could be in different panels and still work fine. This is an important concept to keep in mind when working with Shiny and reactive expressions. You don’t want to think about it running linearly like a regular R program because the server is running reactively and constantly going back and forth. To be comfortable with Shiny your mindset needs to change a bit from regular R programming. It’s still a program, but it’s more interactive.
 One thing to note is that if we were to label the text output $text1 instead of $text, it wouldn’t display anything. This is because the UI is looking for text when it says textOutput. Similarly, if we were to label the slider $slider1 instead of $slider, it wouldn’t display anything because the render text from the server function is looking for $slider1, but the UI hasn’t put out anything labeled slider1. It’s important to remember that your labels need to match up for everything to work properly.</p>
