@@ -4,7 +4,7 @@ In this overview module, we'll go over some information and resources to help yo
 ## Welcome
 ### Welcome to Developing Data Products
 
-Hello everyone, my name is Bryan Caffo and I am excited to welcome you to the Developing Data Products course. This course is designed to provide you with the necessary tools for improving the data analysis process and making data-driven decisions. Shaun Cross and I, both from the Department of Biostatistics at the Johns Hopkins Bloomberg School of Public Health, have co-developed the second version of this course. We have updated much of the old content and added new techniques for building in-demand data tools in R. Throughout this course, we will cover a range of topics including R Markdown, which allows you to create websites, PDFs, presentations, and even e-books from a single file in R. We will also teach you the latest features of the Shiny package, which you can use to create interactive web applications in R. In addition, we will cover interactive graphics using Plotly and Leaflet, which enables you to create beautiful maps that you can share online. You will also learn how to use GoogleViz to create maps, interactive graphics, and tables. We've also added a section on how to use swirl and swirlify to design courses in R so that you can share your knowledge. Thank you for joining us, and we look forward to seeing you in class!
+Hello everyone, my name is Bryan Caffo and I am excited to welcome you to the Developing Data Products course. This course is designed to provide you with the necessary tools for improving the data analysis process and making data-driven decisions. Shaun Cross and I, both from the Department of Biostatistics at the Johns Hopkins Bloomberg School of Public Health, have co-developed the second version of this course. We have updated much of the old content and added new techniques for building in-demand data tools in R. Throughout this course, we will cover a range of topics including R Markdown, which allows you to create websites, PDFs, presentations, and even e-books from a single file in R. We will also teach you the latest features of the Shiny package, which you can use to create interactive web applications in R. In addition, we will cover interactive graphics using Plotly and Leaflet, which enables you to create beautiful maps that you can share online. We've also added a section on how to use swirl and swirlify to design courses in R so that you can share your knowledge. Thank you for joining us, and we look forward to seeing you in class!
 
 ### A Note of Explanation
 
@@ -41,10 +41,10 @@ The lectures will be taught over four weeks with the third week dedicated to cre
 
 The weeks are organized as follows
 
-1. Shiny, rCharts, manipulate, googleVis
-2. Presenting data analysis, slidify, R Studio presenter.
-3. Students creating and deploying their projects
-4. Creating R packages, classes and methods, yhat.
+1. Shiny
+2. Quarto
+3. Creating and deploying projects
+4. Creating R packages, classes and methods
 
 #### Github repository
 
