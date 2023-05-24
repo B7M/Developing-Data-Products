@@ -67,10 +67,10 @@ It's variable pricing, including free! It also includes some content that was no
 
 #### Weekly quizzes
 
--   There are three weekly quizzes.
--   You must earn a grade of at least 80% to pass a quiz
--   You may attempt each quiz up to 3 times in 8 hours.
--   The score from your most successful attempt will count toward your final grade.
+- There are three weekly quizzes.
+- You must earn a grade of at least 80% to pass a quiz
+- You may attempt each quiz up to 3 times in 8 hours.
+- The score from your most successful attempt will count toward your final grade.
 
 #### Course Project
 
@@ -82,10 +82,10 @@ You must score at least 80% on all assignments (Quizzes & Project) to pass the c
 
 Your final grade will be calculated as follows:
 
--   Quiz 1 = 20%
--   Quiz 2 = 20%
--   Quiz 3 = 20%
--   Course project = 40%
+- Quiz 1 = 20%
+- Quiz 2 = 20%
+- Quiz 3 = 20%
+- Course project = 40%
 
 #### Differences of opinion
 
@@ -165,11 +165,11 @@ With Shiny we create the GUI in R, the algorithms and everything else that are p
 
 Before we dive into using Shiny, there are a few prerequisites to keep in mind.
 
--   Although everything is done in R, some basic knowledge of HTML is recommended. While it's not necessary to know CSS or JavaScript, familiarity with some HTML commands can help you better understand what the R commands are doing. However, we won't be teaching HTML here as there are plenty of online tutorials available to learn from.
+- Although everything is done in R, some basic knowledge of HTML is recommended. While it's not necessary to know CSS or JavaScript, familiarity with some HTML commands can help you better understand what the R commands are doing. However, we won't be teaching HTML here as there are plenty of online tutorials available to learn from.
 
--   Shiny incorporates the Bootstrap package, which is not related to the statistics bootstrap, but is instead a web design framework developed by Twitter. Bootstrap provides a set of buttons and other design elements that look good and resize well on various devices, from small phones to large screens. The creators of Bootstrap have put a lot of thought into making it user-friendly. If you are not familiar with web development, it's recommended to stick with the Bootstrap themes in Shiny.
+- Shiny incorporates the Bootstrap package, which is not related to the statistics bootstrap, but is instead a web design framework developed by Twitter. Bootstrap provides a set of buttons and other design elements that look good and resize well on various devices, from small phones to large screens. The creators of Bootstrap have put a lot of thought into making it user-friendly. If you are not familiar with web development, it's recommended to stick with the Bootstrap themes in Shiny.
 
--   To learn about the three core components of the applications we'll be developing, you can refer to some tutorials on HTML, CSS, and JavaScript. Briefly, CSS provides styling, JavaScript is responsible for interactivity, and HTML is the backbone of the front end. It's crucial to familiarize yourself with HTML, so be sure to check out some HTML tutorials.
+- To learn about the three core components of the applications we'll be developing, you can refer to some tutorials on HTML, CSS, and JavaScript. Briefly, CSS provides styling, JavaScript is responsible for interactivity, and HTML is the backbone of the front end. It's crucial to familiarize yourself with HTML, so be sure to check out some HTML tutorials.
 
 To get started with Shiny, you'll need to install it using the command `{r, echo=T, eval=F} install.packages('shiny')` and then ensure it's loaded by typing `{r, echo=T, eval=F} library(shiny)`. Before beginning, it's worth considering the official Shiny tutorial at RStudio, which this lecture will largely be following.
 
@@ -204,7 +204,7 @@ shinyServer(function(input, output) {
 })
 ```
 
-The ShinyUI function controls the user interface, and the shinyServer function is required in the server.R file. Although our server doesn't do anything in this point. Let's take a closer look at the ShinyUI function. The **fluidPage** function specifies the type of page used to create the user interface, which is typically the default option. The **titlePanel** function sets the title of the GUI element to *Data science FTW!* The fluidPage function contains a main panel and a side panel by default, so we use the **sidebarLayout** function to specify the sidebar's contents. The sidebarPanel function is used to specify the sidebar's contents, and the **h3** function sets the third-level heading for the *slidebar Text* and *Main panel text*. You can run the Shiny app in two ways. Firstly, if you have a recent version of RStudio, you can click **Run App** to run the app. Secondly, you can switch to the directory where the ui.R and server.R files are located and type **runApp()** in the console. You can also specify the app's path within the **runApp** function. RStudio creates a local web server, which can be accessed using RStudio's browser. While it's possible to simply share the code with others so they can run it, that's not our ultimate goal. Our goal is to have the app running on a webpage. We've taken the first step, so now let's continue and work on adding functionality to make the app more useful.
+The ShinyUI function controls the user interface, and the shinyServer function is required in the server.R file. Although our server doesn't do anything in this point. Let's take a closer look at the ShinyUI function. The **fluidPage** function specifies the type of page used to create the user interface, which is typically the default option. The **titlePanel** function sets the title of the GUI element to _Data science FTW!_ The fluidPage function contains a main panel and a side panel by default, so we use the **sidebarLayout** function to specify the sidebar's contents. The sidebarPanel function is used to specify the sidebar's contents, and the **h3** function sets the third-level heading for the _slidebar Text_ and _Main panel text_. You can run the Shiny app in two ways. Firstly, if you have a recent version of RStudio, you can click **Run App** to run the app. Secondly, you can switch to the directory where the ui.R and server.R files are located and type **runApp()** in the console. You can also specify the app's path within the **runApp** function. RStudio creates a local web server, which can be accessed using RStudio's browser. While it's possible to simply share the code with others so they can run it, that's not our ultimate goal. Our goal is to have the app running on a webpage. We've taken the first step, so now let's continue and work on adding functionality to make the app more useful.
 
 ### Shiny 1.3
 
@@ -228,7 +228,7 @@ shinyUI(fluidPage(
 ))
 ```
 
-Let's go over the various HTML tags that we can utilize in our Shiny app, or at least a subset of them. Specifically, we will be covering the formatting tags. In the UI.R function, we have added some headings including h1, h2, h3, which are all located in the sidebar layout. Additionally, we have included some emphasized text and code text, which is displayed in a mono space format. It's always best to display code in this format, just like when editing code. Once you run the app, you can see the different heading values, main panel, and code displayed in mono space format. While the app is running if you click on **Open in Browser**, it will open the app in a web browser. Now in the browser, you can use *Ctrl+U* on Windows or *Option+Command+U* on Mac to view the R code that generates the webpage. This will allow you to see how the app uses JavaScript libraries to run Shiny. You may not need to worry about the head section unless you have some familiarity with JavaScript.
+Let's go over the various HTML tags that we can utilize in our Shiny app, or at least a subset of them. Specifically, we will be covering the formatting tags. In the UI.R function, we have added some headings including h1, h2, h3, which are all located in the sidebar layout. Additionally, we have included some emphasized text and code text, which is displayed in a mono space format. It's always best to display code in this format, just like when editing code. Once you run the app, you can see the different heading values, main panel, and code displayed in mono space format. While the app is running if you click on **Open in Browser**, it will open the app in a web browser. Now in the browser, you can use _Ctrl+U_ on Windows or _Option+Command+U_ on Mac to view the R code that generates the webpage. This will allow you to see how the app uses JavaScript libraries to run Shiny. You may not need to worry about the head section unless you have some familiarity with JavaScript.
 
 Most of the elements you see here are style sheets from Twitter Bootstrap, which provides the formatting for all the buttons and styles that Shiny uses. However, this section also contains some of the input and output components that Shiny requires. The majority of the content we display is in the body, where you can observe how the function creates the HTML commands by translating your ui.R file. This is a valuable exercise, particularly when creating named buttons and other similar components. It can also help you become more comfortable with coding in HTML if you're familiar with Shiny but not with HTML. Eventually, if you intend to develop advanced web pages that call R in the back end, you'll likely need to create your own pages rather than relying solely on ui.R. Therefore, playing around with HTML tags and designing a simple non-interactive webpage can help you become more familiar with them. In our next session, we'll start adding buttons, sliders, and graphs, calling R in the back end, and exploring some of Shiny's essential features.
 
@@ -240,50 +240,50 @@ Our Shiny app needs to take input values, perform R calculations, and display th
 # ui.R
 library(shiny)
 shinyUI(fluidPage(
-  titlePanel("Slider App"), 
+  titlePanel("Slider App"),
   sidebarLayout(
     sidebarPanel(
       h1("Move the Slider!"),
       sliderInput("slider1", "Slide Me!", 0, 100, 0)
-    ), 
+    ),
     mainPanel(
       h3("Slider Value:"),
-      textOutput("text") 
+      textOutput("text")
     )
-  ) 
+  )
 ))
 ```
 
 and
 
 ```{r, eval=F, echo=T}
-library(shiny) 
+library(shiny)
 shinyServer(function(input, output) {
-  output$text <- renderText(input$slider1) 
+  output$text <- renderText(input$slider1)
 })
 ```
 
 In Shiny, a function needs to have curly braces and it needs to be closed with both curly braces and the shiny server parenthesis. The function takes input from the UI, which is the shiny UI function. The function takes in \$slider and renders it, displaying the text. We can name the output text. In the UI.R, in the main Panel, we specify that the slider value is displayed and the text output is text. This ensures that the same text we labeled from the output in the server function will be displayed in the name panels. When we run the code, we can move the slider and see the slider value displayed.
 
 ```{r, echo=F}
-library(shiny) 
+library(shiny)
 shinyApp(
   ui<-fluidPage(
-    titlePanel("Slider App"), 
+    titlePanel("Slider App"),
     sidebarLayout(
       sidebarPanel(
         h1("Move the Slider!"),
         sliderInput("slider1", "Slide Me!", 0, 100, 0)
-      ), 
+      ),
       mainPanel(
         h3("Slider Value:"),
-        textOutput("text") 
+        textOutput("text")
       )
-    ) 
+    )
   ),
 
   server<- function(input, output) {
-    output$text <- renderText(input$slider1) 
+    output$text <- renderText(input$slider1)
   },
   options = list(height = 500)
 )
