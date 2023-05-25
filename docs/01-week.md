@@ -1,3 +1,7 @@
+<style>
+body {
+text-align: justify}
+</style>
 # First week
 
 In this overview module, we'll go over some information and resources to help you get started and succeed in the course.
