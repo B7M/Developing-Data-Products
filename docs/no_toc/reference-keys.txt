@@ -46,7 +46,6 @@ shiny-gadgets-1.3
 shiny-gadgets-1.4
 minitabstrippanel
 fillrowfillcol
-quiz-1
 second-week
 quarto
 publishing-quarto-content
