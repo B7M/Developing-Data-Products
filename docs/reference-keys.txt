@@ -88,5 +88,9 @@ swirl-courses
 swirl-1.1
 swirl-1.2
 swirl-1.3
+swirl-1.4
+sharing-your-course-as-a-file
+sharing-your-course-on-github
+sharing-your-course-on-the-swirl-course-network
 course-project-1
 references
