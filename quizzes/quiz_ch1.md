@@ -1,12 +1,12 @@
 
-{quiz, id: quiz_name_here, attempts: 10}
+{quiz, id: Week-1, attempts: 10}
 
 ## Template quiz
 
-Put any other instructions your quiz takers need to know here like: Choose the best answer.
+Choose the best answer.
 
 {choose-answers: 4}
-? First question to ask goes here. (Note- you need a question mark at end like this. Just one is required if using a question mark in your question field)?
+1.Which of the following are absolutely necessary for creating a functioning shiny app?
 
 C) One correct answer here marked with a "C"
 C) A second correct answer here
