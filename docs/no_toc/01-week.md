@@ -273,79 +273,361 @@ It's important to note that there's nothing special about having the slider in t
 
 ### Shiny 1.5
 
-We've reached a point where we can start utilizing Shiny. One of the key ways in which Shiny proves helpful is in creating interactive graphics. R, in its default form, doesn't possess a lot of capacity for interactive graphics. With Shiny; however, the scope is broadened, and it provides an efficient way to distribute your results as they're embedded in a web page that you can share broadly. Now, we're going to develop an interactive plot that requires a bit more code in the server.R functions. Once you go through this example, you should be able to utilize Shiny in a more practical way that can assist you with your everyday data science needs. Now, let's proceed to the main task at hand. We start with the initial code and run it to check out the app before we delve into its internal workings. Essentially, it generates two sets of random uniforms and plots them. You can input the number of uniforms in the text box that also has an increment and decrement operator in the buttons on the right-hand side.
+We've reached a point where we can start utilizing Shiny. One of the key ways in which Shiny proves helpful is in creating interactive graphics. R, in its default form, doesn't possess a lot of capacity for interactive graphics. With Shiny; however, the scope is broadened, and it provides an efficient way to distribute your results as they're embedded in a web page that you can share broadly. Now, we're going to develop an interactive plot that requires a bit more code in the server.R functions. Once you go through this example, you should be able to use Shiny in a more practical way that can assist you with your everyday data science needs. Now, let's proceed to the main task at hand. We start with the initial code and run it to check out the app before we delve into its internal workings.
 
-The sliders enable you to alter the range of the uniforms generated on both the X and Y axes. There are also buttons available that enable you to Show/Hide the X Axis Label, Show/Hide the Y Axis Label, and Show/Hide the Title. So, we have two sliders, three checkboxes, and a numeric input, as shown. Observe how the code is executed interactively. Whenever there is a change in the values, the entire code is re-run. It's important to get accustomed to the server calculations and reactive programming with Shiny, which, in my opinion, functions somewhat differently than standard R programming, which follows a highly linear pattern. Let's dive into the code and see how everything was achieved. To begin with, let's start by analyzing the UI.r function, which is the Shiny UI function. Firstly, we have the title pane, which is self-explanatory. Then we have the numeric input, which is labeled as "numeric". It includes a title, starting value, minimum, and maximum values, so that users cannot input values beyond the specified range. Additionally, there is a step sizer that controls the increment and decrement of values when the buttons on the right-hand side are pressed. Moving on to the two sliders, they are similar to ones we have seen before. The first slider, sliderX, has two values, which are used to determine the two points of the slider. The same applies to the Y slider. Lastly, we have three check boxes: show_xlab, show_ylab, and show_title. As for the sliders, the first slider is labeled as "sliderX" and the second one as "sliderY". The labels for the check boxes are straightforward and need no explanation. Let's examine the code to see how we achieve our desired outcome in the UI and server functions. Starting with the UI.r function, we first have the title pane and a numeric input labeled as "numeric" with its corresponding title, starting value, minimum and maximum values, and step size. Next, we have two sliders, labeled as "sliderX" and "sliderY," each with two values to establish their position. We also have a Y slider, which is essentially the same. Finally, there are three check boxes with labels that are pretty self-explanatory, namely, "show_xlab," "show_ylab," and "show_title." Moving on to the server function, we will generate the plot output. In the function, we define "output$plot1" so that when we display it on the user interface, it will show as plot1. Since it is a plot, we use the "renderPlot" statement, which uses reactive expressions (i.e., calculations that interact with the server). Reactive statements are enclosed in curly braces next to the renderPlot statement. After setting the random number seed, we assign the number of points to the input$numeric for convenience and to make the code more readable. The minimum and maximum values for X and Y are derived from the sliders, which are returned as a list, with the X slider's values in a vector and the Y slider's values in another vector. We then assign these values to variables for ease of reuse. Our data is a list of random uniform numbers generated using the"runif" function with the number of points and range between the minimum and maximum X values as arguments. Similarly, we generate the dataY vector using the number of points, minimum and maximum Y values. We use an ifelse statement to define the labels for the X axis, Y axis, and title. The check box input\$show_xlab determines whether or not the X axis is labeled, and its corresponding label is either "X Axis" or nothing. The same goes for the Y axis and title. Finally, we create our plot, using the X and Y data generated earlier. The xlab, ylab, and title are all dependent on the values of their corresponding labels, and the x and y limits are set to predetermined values. We then return the plot. Running the code now that we understand its workings will allow us to view the output. Let's review what's happening when we change a value. The Shiny server takes the input value for the server, which includes slider X value one, slider X value two, slider Y value one, slider Y value two, and show X lab and show Y lab, which can be true or false. As we input these values, the Shiny server continuously checks for new values, and every time it receives a new set of values, it re-runs and re-displays everything, communicating back and forth between the server and the UI. If your calculations are more complex, we can add a done button to prevent immediate re-running. This example is simple and fast, but later on, we'll show you how to add a done button for more complex simulations. You can create your own interactive graphic by following this example and using different kinds of inputs, not just sliders and numeric inputs. This is a useful tool that can be extended to many meaningful applications. Your homework is to create an interactive graphic using Shiny and experiment with different inputs.
+
+```r
+# ui.R
+library(shiny)
+shinyUI(fluidPage(
+  titlePanel("Plot Random Numbers"),
+  sidebarLayout(
+    sidebarPanel(numericInput("numeric", "How many random numbers should be plotted?",
+                value = 500, min = 1, max = 1000, step = 1),
+                sliderInput("sliderX", "Pick minimum and maximum X values",
+                -100, 100, value = c(-50, 50)),
+    sliderInput("sliderY", "Pick minimum and maximum Y values",
+                -100, 100, value = c(-50, 50)),
+    checkboxInput("show_xlab", "Show/Hide X axis label", value = TRUE),
+    checkboxInput("show_ylab", "Show/Hide Y axis label", value = TRUE),
+    checkboxInput("show_title", "Show/Hide Title")
+    ),
+    mainPanel(
+      h3("Graph of Random Points"),
+      plotOutput("plot1")
+    )
+  )
+))
+```
+
+
+```r
+# server.R
+library(shiny)
+shinyServer(function(input, output) {
+  output$plot1 <- renderPlot({
+    set.seed(2016-05-25)
+    number_of_points <- input$numeric
+    minX <- input$sliderX[1]
+    maxX <- input$sliderX[2]
+    minY <- input$sliderY[1]
+    maxY <- input$sliderY[2]
+    dataX <- runif(number_of_points, minX, maxX)
+    dataY <- runif(number_of_points, minY, maxY)
+    xlab <- ifelse(input$show_xlab, "X Axis", "")
+    ylab <- ifelse(input$show_ylab, "Y Axis", "")
+    main <- ifelse(input$show_title, "Title", "")
+    plot(dataX, dataY, xlab = xlab, ylab = ylab, main=main,
+          xlim = c(-100, 100), ylim = c(-100, 100))
+  })
+})
+```
+
+Essentially, it generates two sets of random uniforms and plots them. You can input the number of uniforms in the text box that also has an increment and decrement operator in the buttons on the right-hand side.
+The sliders enable you to alter the range of the uniforms generated on both the X and Y axes. There are also buttons available that enable you to Show/Hide the X and Y axis labels and Show/Hide the Title. So, we have two sliders, three checkboxes, and a numeric input, as shown. Observe how the code is executed interactively. Whenever there is a change in the values, the entire code is re-run. It's important to get accustomed to the server calculations and reactive programming with Shiny, which, functions somewhat differently than standard R programming, which follows a highly linear pattern.
+
+Let's dive into the code and see how everything was achieved. To begin with, let's start by analyzing the ui.r function, which is the Shiny UI function. Firstly, we have the title pane, which is self-explanatory. Then we have the numeric input, which is labeled as "numeric". It includes a title, starting value, minimum, and maximum values, so that users cannot input values beyond the specified range. Additionally, there is a step sizer that controls the increment and decrement of values when the buttons on the right-hand side are pressed. Moving on to the two sliders, they are similar to ones we have seen before. The first slider, sliderX, has two values, which are used to determine the two points of the slider. The same applies to the Y slider. Lastly, we have three check boxes: show_xlab, show_ylab, and show_title. As for the sliders, the first slider is labeled as "sliderX" and the second one as "sliderY". The labels for the check boxes are straightforward and need no explanation. Moving on to the server function, we will generate the plot output. In the function, we define _output$plot1_ so that when we display it on the user interface, it will show as plot1. Since it is a plot, we use the **renderPlot** statement, which uses reactive expressions (i.e., calculations that interact with the server). Reactive statements are enclosed in curly braces next to the renderPlot statement. After setting the random number seed, we assign the number of points to the _input$numeric_ for convenience and to make the code more readable. The minimum and maximum values for X and Y are derived from the sliders, which are returned as a list, with the X slider's values in a vector and the Y slider's values in another vector. We then assign these values to variables for ease of reuse.
+
+Our data is a list of random uniform numbers generated using the _runif_ function with the number of points and range between the minimum and maximum X values as arguments. Similarly, we generate the dataY vector using the number of points, minimum and maximum Y values. We use an _ifelse_ statement to define the labels for the X axis, Y axis, and title. The check box _input$show_xlab_ determines whether or not the X axis is labeled, and its corresponding label is either "X Axis" or nothing. The same goes for the Y axis and title. Finally, we create our plot, using the X and Y data generated earlier. The xlab, ylab, and title are all dependent on the values of their corresponding labels, and the x and y limits are set to predetermined values. We then return the plot. Running the code now that we understand its workings will allow us to view the output. Let's review what's happening when we change a value. The Shiny server takes the input value for the server, which includes slider X value one, slider X value two, slider Y value one, slider Y value two, and show X lab and show Y lab, which can be true or false. As we input these values, the Shiny server continuously checks for new values, and every time it receives a new set of values, it re-runs and re-displays everything, communicating back and forth between the server and the ui. If your calculations are more complex, we can add a done button to prevent immediate re-running. This example is simple and fast, but later on, we'll show you how to add a done button for more complex simulations. This is a useful tool that can be extended to many meaningful applications.
+
+Your homework is to create an interactive graphic using Shiny and experiment with different inputs.
 
 ## Shiny Part 2
 
 ### Shiny 2.1
 
-Welcome to the second lecture on Shiny. Today, we'll delve into the fascinating world of reactive expressions. We'll explore how they can be used to build more complex Shiny applications that perform sophisticated calculations, generate informative visualizations, and deliver insightful results. In the previous lecture, we learned the basics of creating interactive graphics using Shiny. However, to create more meaningful applications, we need to dive deeper and leverage the full power of Shiny. And that's where reactivity comes in. A reactive expression is like a recipe that takes input from Shiny and returns a computed value. It is an essential concept in Shiny that enables us to build applications that respond dynamically to user input. Using reactive expressions may require some unconventional R coding techniques, but it's worth it for the additional functionality it provides. To use reactive expressions, we need to wrap the expression in a reactive function. This function allows us to isolate expressions that respond to user input from the Shiny UI function. Let's consider an example where we have two input boxes, one labeled "Box One" and the other "Box Two." In our Shiny server function, suppose we want to add the values from Box One and Box Two and assign the result to a variable.
+Welcome to the second lecture on Shiny. Today, we'll delve into the fascinating world of reactive expressions. We'll explore how they can be used to build more complex Shiny applications that perform sophisticated calculations, generate informative visualizations, and deliver insightful results. In the previous lecture, we learned the basics of creating interactive graphics using Shiny. However, to create more meaningful applications, we need to leverage the full power of Shiny. And that's where reactivity comes in. A reactive expression is like a recipe that takes input from Shiny and returns a computed value. It is an essential concept in Shiny that enables us to build applications that respond dynamically to user input. Using reactive expressions may look daunting in the beginning, but with practice yo will get hang of it and utilize the additional functionality it provides. To use reactive expressions, we need to wrap the expression in a reactive function.
 
-Our aim here is to develop a Shiny app that incorporates reactive expressions to enhance the complexity and meaningfulness of our server calculations, and consequently, generate more interesting graphs and results. So what exactly is a reactive expression? Essentially, it's like a recipe that takes inputs from Shiny, manipulates them, and returns a value. However, due to the specific intricacies of Shiny, this requires some slightly unorthodox R coding. In particular, if you want isolated expressions that respond to input from your ui.r and Shiny.i function, they need to be wrapped as a reactive function. For instance, consider the scenario where we have two input boxes, labeled box one and box two, and we want to add the results from these boxes and assign the sum to a variable. To ensure that this calculation is redone every time the input values change, we need to include it in a reactive statement. The output of this calculation, calc_sum, is assigned as reactive, using a slightly unique notation that involves functional parentheses as well as curly braces containing the reactive statements. Once we add input$box1 + input$box2 inside the reactive statement, the calc_sum() function will adapt as we input new values into box1 and box2.
+What exactly is a reactive expression? Essentially, it's like a recipe that takes inputs from Shiny, manipulates them, and returns a value. However, due to the specific intricacies of Shiny, this requires some slightly unorthodox R coding. In particular, if you want isolated expressions that respond to input from your ui.r or ShinyUI function, they need to be wrapped as a reactive function. For instance, consider the scenario where we have two input boxes, labeled box one and box two, and we want to add the results from these boxes and assign the sum to a variable.
 
-Now, let's move on to a relatively simple example that demonstrates how to create a reactive environment in Shiny. This example will provide you with a comprehensive tool set to start creating your own Shiny applications that can handle just about anything you need to do. For instance, if you have a machine learning algorithm, you can create an app that allows users to input parameters, generates predictions, and calculates prediction error on the fly.
+<img src="resources/images/01-week_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
-Towards the end of the lecture, we'll show you how to make the app reactive in such a way that the user has to press a button to execute the command. This conditionally reactive approach is useful for algorithms that take a lot of time to execute.
+To ensure that this calculation is redone every time the input values change, we need to include it in a reactive statement.
 
-So, we'll go through a code demonstration that heavily utilizes reactive expressions, and by the end of it, you'll have a better understanding of how to incorporate these expressions into your own Shiny apps.
+
+```r
+calc_sum <- reactive({
+  input$box1 + input$box2
+})
+# ...
+
+calc_sum()
+```
+
+The output of this calculation, calc_sum, is assigned as reactive, using a slightly unique notation that involves functional parentheses as well as curly braces containing the reactive statements. Once we add input$box1 + input$box2 inside the reactive statement, the calc_sum() function will adapt as we input new values into box1 and box2.
+
+In the following section, we will deal with a relatively simple example that demonstrates how to create a reactive environment in Shiny. The example will provide you with a comprehensive tool set to start creating your own Shiny applications that can handle just about anything you need to do. For instance, if you have a machine learning algorithm, you can create an app that allows users to input parameters, generates predictions, and calculates prediction error on the fly.
 
 ### Shiny 2.2
 
-You can copy the code from the R Markdown document for the next set of examples. In the following, we will first demonstrate the user interface and then the server calculations. Our objective is to showcase reactive expressions. We start with the `shiny` library statement, followed by the `shinyUI` function, which uses `fluidPage`. This page will have a title and a `sidebarLayout` containing a `sidebarPanel` and a `mainPanel`. The `sidebarPanel` will include a `sliderInput` labeled as `sliderMPG` to input the car's miles per gallon, and a checkbox to indicate whether certain model values should be displayed in the `mainPanel`. The default value for the `sliderInput` is 20, with a range of 10 to 35 miles per gallon. Our goal is to create an output that displays the prediction for the horsepower. In the `mainPanel`, the inputs are `showModel1` and `showModel2`.
+Here we'll go through a code demonstration that heavily utilizes reactive expressions, and by the end of it, you'll have a better understanding of how to incorporate these expressions into your own Shiny apps. In the following, we will first demonstrate the user interface and then the server calculations. Our objective is to showcase reactive expressions. Take a look at the code and run it to see how it works then we'll go through it step by step.
 
-The main panel will display the plot labeled plot1, which is defined in our server function to be displayed in the main panel. We will also have two text outputs labeled pred1 and pred2 that will be displayed in the main panel. In the user interface, we have a slider input labeled sliderMPG, which allows users to input the MPG of their car, and a checkbox labeled showModel1 and showModel2 to determine which model values to display in the output. The slider input has a default value of 20 and a range from 10 miles per gallon to 35 miles per gallon.
 
-The label of the slider input to obtain the MPG is sliderMPG. Additionally, there are two checkboxes to determine whether to display the specific model output. These inputs will be sent to the server. In return, we expect the server functions to provide us with a plot labeled plot1, text labeled pred1, and text labeled pred2. Moving on to the server, the shinyServer function includes a function with input and output parameters.
+```r
+# ui.R
+library(shiny)
+shinyUI(fluidPage(
+  titlePanel("Predict Horsepower from MPG"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("sliderMPG", "What is the MPG of the car?",10, 35, value=20),
+      checkboxInput("showModel1", "Show/Hide Model 1", value = TRUE),
+      checkboxInput("showModel2", "Show/Hide Model 2", value = TRUE)
+    ),
+    mainPanel(
+      h3("Plot of Predicted Horsepower"),
+      plotOutput("plot1"),
+      h3("Predicted Horsepower for Model 1:"),
+      textOutput("pred1"),
+      h3("Predicted Horsepower for Model 2:"),
+      textOutput("pred2")
+    )
+  )))
+```
 
-The first step in the process is to load the default "mtcars" dataset. This dataset is commonly used in R as an example dataset and is used to create a spline term. If the mpg of the car is greater than 20, the spline term returns the mpg value. Otherwise, it returns 0. This is useful when feeding a model that has a "broken stick" feed - a line with a breakpoint at 20, followed by another line that meets continuously at the breakpoint. The code fits two models, one with just mpg and another with mpg at the breakpoint in the middle. These two models are used to form the prediction. Next, we need to calculate predictions based on input values from the user interface, so it needs to be in a reactive statement. The reactive statement uses a parenthesis and a curly brace notation. We relabel the input as a regular R variable, mpgInput, to avoid typing "input$" repeatedly. We use the predict statement with model1 to predict the new value from the slider. Similarly, we create model2 with an extra spline term, mpgsp, that returns the input value if it is greater than 20, otherwise returning 0. The two reactive assigned variables are model1 pred and model2 pred. The first output that we create is output$plot1, which our user interface expects to be a plot labeled plot1. We use the renderPlot notation for a plot, using the mpgInput value obtained from the slider.
 
-Next, a plot will be created. You should be familiar with R plotting, so you can review how it's working. However, pay attention to the conditional values for whether or not the lines for model1 and model2 will be included, which are controlled by showModel1 and showModel2. The plot also has a nice legend. The most crucial part to note is that we will add some points at the miles per gallon value that you input, as shown in this code. Remember, we renamed it from input\$sliderMPG earlier. Additionally, we want to include the result of our reactive expression, model1pred. However, remember that you need to access that number as a function because it was from a reactive expression elsewhere in the code.
+```r
+library(shiny)
+shinyServer(function(input, output) {
+  mtcars$mpgsp <- ifelse(mtcars$mpg - 20 > 0, mtcars$mpg-20,0)
+  model1 <- lm(hp ~ mpg, data = mtcars)
+  model2 <- lm(hp ~ mpgsp + mpg, data = mtcars)
 
-If the parentheses are not included, the function will be returned, which cannot be plotted by points because it is a function. Therefore, to obtain the value, the parentheses must be included. The second point is that the output of this function is a plot that will be returned to the user interface. It will include the two fitted lines if the check boxes are checked, the data used to fit the lines, and specific points at the prediction values. Additionally, the code is looking for pred1 and pred2, which will be text. These will be rendered using the function renderText({) with the reactive expressions model1pred() and model2pred(), respectively. In both cases, the parentheses must be included for the reactive expression. Finally, the code can be run to see how it works.
+  model1pred <- reactive({
+    mpgInput <- input$sliderMPG
+    predict(model1, newdata = data.frame(mpg = mpgInput))
+    })
+    model2pred <- reactive({
+      mpgInput <- input$sliderMPG
+      predict(model2, newdata = data.frame(mpg = mpgInput,
+              mpgsp = ifelse(mpgInput - 20>0, mpgInput-20, 0)))
+    })
 
-And there it is, the plot is now generated. As we adjust the slider, you will notice the two prediction points appearing. The red line represents the model without the spline term, while the blue line has the spline term at 20, creating a broken stick-like pattern. We have successfully created our two models and added their respective predictions below the plot. Additionally, we can toggle the visibility of either of the two lines using the checkboxes. Once you have gone through this example, you should feel confident in working with Shiny and utilizing it for more complex tasks. In the next step, we will cover conditional expressions that allow us to operate on the code conditionally based on certain triggers, such as clicking a "done" button. But for now, you should be able to make good use of Shiny for your needs.
+output$plot1 <- renderPlot({
+  mpgInput <- input$sliderMPG
 
-We encourage you to give this example a try, and I'm confident that after the next lecture, you'll have a strong understanding of working with shiny apps and be able to create useful applications for yourself and others to use on the internet.
+  plot(mtcars$mpg, mtcars$hp, xlab = "Miles Per Gall",
+      ylab = "Horsepower", bty = "n", pch = 16,
+      xlim = c(10, 35), ylim = c(50, 350))
+
+      if(input$showModel1){
+        abline(model1, col = "red", lwd = 2)
+      }
+      if(input$showModel2){
+        model2lines <- predict(model2,
+                              newdata = data.frame(mpg = 10:35, mpgsp = ifelse(10:35 - 20 > 0, 10:35-20, 0)))
+        lines(10:35, model2lines, col = "blue", lwd = 2)
+      }
+      legend(25, 250, c("Model 1 Prediction", "Model 2 Prediction"),pch=16,
+            col = c("red", "blue"), bty = "n", cex = 1.2)
+        points(mpgInput, model1pred(), col = "red", pch =16, cex = 2)
+        points(mpgInput, model2pred(), col = "blue", pch = 16, cex = 2)
+  })
+  output$pred1 <- renderText({
+    model1pred()
+    })
+output$pred2 <- renderText({
+  model2pred()
+  })
+})
+```
+
+We start with the `shiny` library statement, followed by the `shinyUI` function, which uses `fluidPage`. This page will have a title and a `sidebarLayout` containing a `sidebarPanel` and a `mainPanel`. The `sidebarPanel` will include a `sliderInput` labeled as `sliderMPG` to input the car's miles per gallon, and a checkbox to indicate whether certain model values should be displayed in the `mainPanel`. The default value for the `sliderInput` is 20, with a range of 10 to 35 miles per gallon. Our goal is to create an output that displays the prediction for the horsepower. In the `mainPanel`, the inputs are `showModel1` and `showModel2`.
+
+The main panel will display the plot labeled _plot1_, which is defined in our server function to be displayed in the main panel. We will also have two text outputs labeled _pred1_ and _pred2_ that will be displayed in the main panel. In the user interface, we have a slider input labeled sliderMPG, which allows users to input the MPG of their car, and a checkbox labeled _showModel1_ and _showModel2_ to determine which model values to display in the output. The slider input has a default value of 20 and a range from 10 miles per gallon to 35 miles per gallon.
+
+The first step in the process is to load the default "mtcars" dataset. This dataset is commonly used in R as an example dataset and is used to create a spline term. If the mpg of the car is greater than 20, the spline term returns the mpg value. Otherwise, it returns 0. This is useful when feeding a model that has a "broken stick" feed - a line with a breakpoint at 20, followed by another line that meets continuously at the breakpoint. The code fits two models, one with just mpg and another with mpg at the breakpoint in the middle. These two models are used to form the prediction. Next, we need to calculate predictions based on input values from the user interface, so it needs to be in a reactive statement. The reactive statement uses a parenthesis and a curly brace notation. We relabel the input as a regular R variable, mpgInput, to avoid typing _input$_ repeatedly. We use the predict statement with model1 to predict the new value from the slider. Similarly, we create model2 with an extra spline term, mpgsp, that returns the input value if it is greater than 20, otherwise returning 0. The two reactive assigned variables are model1 pred and model2 pred. The first output that we create is _output$plot1_, which our user interface expects to be a plot labeled plot1. We use the renderPlot notation for a plot, using the mpgInput value obtained from the slider.
+
+Next, a plot will be created. You should be familiar with R plotting, so you can review how it's working. However, pay attention to the conditional values for whether or not the lines for model1 and model2 will be included, which are controlled by showModel1 and showModel2. The plot also has a nice legend. Additionally, we want to include the result of our reactive expression, model1pred. However, remember that you need to access that number as a function because it was from a reactive expression elsewhere in the code. If the parentheses are not included, the function will be returned, which cannot be plotted by points because it is a function. Therefore, to obtain the value, the parentheses must be included. Another point is that the output of this function is a plot that will be returned to the user interface. It will include the two fitted lines if the check boxes are checked, the data used to fit the lines, and specific points at the prediction values. Additionally, the code is looking for pred1 and pred2, which will be text. These will be rendered using the function _renderText()_ with the reactive expressions _model1pred()_ and _model2pred()_, respectively. In both cases, the parentheses must be included for the reactive expression. Now if you run the code again, you see the plot is now generated. As we adjust the slider, you will notice the two prediction points appearing. The red line represents the model without the spline term, while the blue line has the spline term at 20, creating a broken stick-like pattern. We have successfully created our two models and added their respective predictions below the plot. Additionally, we can toggle the visibility of either of the two lines using the checkboxes.
+
+Once you have gone through this example, you should feel confident in working with Shiny and utilizing it for more complex tasks. We encourage you to give this example a try, and we are confident that after the next lecture, you'll have a strong understanding of working with shiny apps and be able to create useful applications for yourself and others to use on the internet.
 
 ### Shiny 2.3
 
-If the server functions in your Shiny app involve small, quick calculations, then it's not a problem. However, if your app requires computationally intensive tasks like a large Monte Carlo simulation or Bootstrap, you might want to have the values settled before clicking a submit button. To do this, it only requires one extra line of code. Here, we have the same code as the previous example, set up in the same way. When we click Run App, the app appears, and as we move the slider, it runs the code again. Now, we want to add a submit button, so we'll add this command from the slides: submitButton. The button's value is Submit, and it provides a labeled input value called Submit that you can use in your server functions, for example, if the submitButton is true.
+As we promised we are going to show you how to make the app reactive in such a way that the user has to press a button to execute the command. This conditionally reactive approach is useful for algorithms that take a lot of time to execute. If the server functions in your Shiny app involve small, quick calculations, then it's not a problem. However, if your app requires computationally intensive tasks like a large Monte Carlo simulation or Bootstrap, you might want to have the values settled before clicking a submit button. To do this, it only requires one extra line of code in _sidebarPanel_.
+
+
+```r
+library(shiny)
+shinyUI(fluidPage(
+  titlePanel("Predict Horsepower from MPG"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("sliderMPG", "What is the MPG of the car?",10, 35, value=20),
+      checkboxInput("showModel1", "Show/Hide Model 1", value = TRUE),
+      checkboxInput("showModel2", "Show/Hide Model 2", value = TRUE),
+      submitButton("Submit!") # This is the new line of code
+    ),
+    mainPanel(
+      h3("Plot of Predicted Horsepower"),
+      plotOutput("plot1"),
+      h3("Predicted Horsepower for Model 1:"),
+      textOutput("pred1"),
+      h3("Predicted Horsepower for Model 2:"),
+      textOutput("pred2")
+    )
+  )))
+```
+
+The button's value is Submit, and it provides a labeled input value called Submit that you can use in your server functions, for example, if the submitButton is true.
 
 Forgetting to include commas after functional arguments is a common mistake in Shiny app development. It's important to remember that these commas are necessary for the app to run properly. RStudio will usually indicate an error with a little "x" symbol. In the current example, we have added a submit button using the `submitButton` command, which takes a labeled input value called "Submit". This button allows us to avoid rerunning the code every time we change the slider value. Instead, we can click the submit button to run the code after we have settled on a value. This can be useful for computationally intensive tasks like Monte Carlo simulations or Bootstrap. Remember that the submit button can be used as a label button in your server functions, so you can use it to control calculations or other aspects of your app. Adding a submit button is a quick and handy way to improve the functionality of your Shiny tools.
 
 ### Shiny 2.4
 
-Let's review a few ways to customize the Shiny user interface. By default, you have a sidebar panel theme, but we'll explore an alternative option using tabs. Once you understand these two examples, you'll be able to adjust the interface using various settings. Additionally, we'll briefly touch on using a custom HTML function for Shiny. Let's start with the advanced UI example and wrap up with some final thoughts.
+Let's review a few ways to customize the Shiny user interface. By default, you have a sidebar panel theme, but we'll explore an alternative option using tabs. Once you understand these two examples, you'll be able to adjust the interface using various settings. Additionally, later we'll briefly touch on using a custom HTML function for Shiny. Let's start with the advanced UI example and wrap up with some final thoughts.
 
-Alright, let's go over a few ways we can modify the UI for Shiny. The code I'll be working with was copied from an R Markdown document. You might already be familiar with the first few lines of code, as we'll still be using a sidebar layout. However, we can also create tabs within a single panel, or have a panel with tabs but no sidebar. And if you're feeling adventurous, we can even customize the UI with custom HTML. For our sidebar panel, we'll have three text input boxes labeled "Box 1", "Box 2", and "Box 3". The prompts for the user will be "Enter Tab 1 text", "Enter Tab 2 text", and "Enter Tab 3 text", respectively, with starting values of "Tab 1", "Tab 2", and "Tab 3". Moving on to the main panel, we'll be using a tabset panel, which is a nested user interface structure in Shiny. We'll use the `mainPanel` function with a `tabsetPanel` inside, specifying `type = "tabs"`. Within that, we'll have three `tabPanel` functions, each with a label indicating "Tab 1", "Tab 2", or "Tab 3", and a `textOutput` that will look for the corresponding output label from the `server.R` file. The `server.R` function will be a simple one, using `shinyServer` with `function(input, output)` arguments. We'll use `renderText` to display the text entered in each of the three input boxes. Let's run the app now!
+Alright, let's go over a few ways we can modify the UI for Shiny. We will be working on the following code.
 
-Let's take a look at our three text boxes for entering text and the three tabs. If we enter new text and go to Tab 2, it will display the new text. This is a good example of how we can customize the UI, and as you work with it more, you'll become more familiar with the syntax. Be sure to avoid errors in your R code while making UI changes, as RStudio will show you X's in the code if you forget to close parentheses or add commas. Proper indentation and using a nice environment like RStudio will make this task easier. Your homework is to create a tabbed user interface for Shiny. Finally, we'll go over some last comments about Shiny.
+
+```r
+# ui.R
+library(shiny)
+shinyUI(fluidPage(
+  titlePanel("Tabs!"),
+  sidebarLayout(
+    sidebarPanel(
+      textInput("box1", "Enter Tab 1 Text:", value = "Tab 1!"),
+      textInput("box2", "Enter Tab 2 Text:", value = "Tab 2!"),
+      textInput("box3", "Enter Tab 3 Text:", value = "Tab 3!")
+      ),
+    mainPanel(
+      tabsetPanel(type = "tabs",
+                  tabPanel("Tab 1", br(), textOutput("out1")),
+                  tabPanel("Tab 2", br(), textOutput("out2")),
+                  tabPanel("Tab 3", br(), textOutput("out3"))
+                  )
+      )
+  )
+))
+```
+
+
+```r
+# server.R
+library(shiny)
+shinyServer(function(input, output) {
+  output$out1 <- renderText(input$box1)
+  output$out2 <- renderText(input$box2)
+  output$out3 <- renderText(input$box3)
+})
+```
+
+You might already be familiar with the first few lines of code, as we'll still be using a sidebar layout. However, we can also create tabs within a single panel, or have a panel with tabs but no sidebar. And if you're feeling adventurous, we can even customize the UI with custom HTML. For our sidebar panel, we'll have three text input boxes labeled "box1", "box2", and "box3". The prompts for the user will be "Enter Tab 1 text", "Enter Tab 2 text", and "Enter Tab 3 text", respectively, with starting values of "Tab 1", "Tab 2", and "Tab 3". Moving on to the main panel, we'll be using _tabsetPanel_ function, which is a nested user interface structure in Shiny. We'll use the `mainPanel` function with a `tabsetPanel` inside, specifying `type = "tabs"`. Within that, we'll have three `tabPanel` functions, each with a label indicating "Tab 1", "Tab 2", or "Tab 3", and a `textOutput` that will look for the corresponding output label from the `server.R` file. The `server.R` function will be a simple one, using `shinyServer` with `function(input, output)` arguments. We'll use `renderText` to display the text entered in each of the three input boxes. You can run the app and see how it works.
+
+Be sure to avoid errors in your R code while making UI changes, as RStudio will show you X's in the code if you forget to close parentheses or add commas. Proper indentation and using a nice environment like RStudio will make the task easier.
+
+figure xxx
+
+Your homework is to create a tabbed user interface for Shiny. Finally, we'll go over some last comments about Shiny.
 
 ### Shiny 2.5
 
-We have repeatedly promised to show you how to use your own HTML, and we have a quick way to do that. We took our last example, saved the HTML that it was running, and put it in a file called index.html in a subdirectory named <www>. Along with the server.R function, this is where the index.html file is located. The index.html file contains a lot of unnecessary preamble from the bootstrap style it gets from that package. So, you can remove most of that and have the style be whatever you want. If you're not familiar with web development, you can start with a simple shiny page, output the HTML, and use that as a starting point to build from. But if you're comfortable with web development, you can start with a blank HTML file and work from there.
+We have repeatedly promised to show you how to use your own HTML, and we have a quick way to do that. We took our last example, saved the HTML, named it index.html and placed it in a subdirectory named _www_. You should also make sure you have the server.R function, in the same directory as _www_. The index.html file contains a lot of unnecessary preamble from the bootstrap style it gets from that package. So, you can remove most of that and have the style be whatever you want. If you're not familiar with web development, you can start with a simple shiny page, output the HTML, and use that as a starting point to build from. But if you're comfortable with web development, you can start with a blank HTML file and work from there. The inputs are the same way as regular HTML inputs.
 
-The inputs function the same way as regular HTML inputs. In this example, we have three boxes labeled Box 1, Box 2, and Box 3. So, the input ID for Box 1 is "box1", for Box 2 it's "box2", and for Box 3 it's "box3". The div statements are used because the Bootstrap style used by Shiny uses these blocky structures to create the default style.
 
-Alright, so the input fields work just like regular HTML input. For instance, the input field with ID "box1" corresponds to the label we provided in the ui.R file. Similarly, we have input fields with IDs "box2" and "box3". These div statements are necessary because Bootstrap, which is used by Shiny, uses this particular CSS style to create blocky structures for the default style.
+```html
+<!DOCTYPE html>
+<html>
 
-Moving on to the output, you can see that it references "out2" and has the class "shiny-text-output". If you're familiar with web development, you may have recognized the output class "shiny-text-output" already. Otherwise, building a Shiny prototype app and grabbing its HTML would give you enough information to work with.
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="application/shiny-singletons"></script>
+  <script
+    type="application/html-dependencies">jquery[3.6.0];shiny-css[1.7.4];shiny-javascript[1.7.4];bootstrap[3.4.1]</script>
+  <script src="jquery-3.6.0/jquery.min.js"></script>
+  <link href="shiny-css-1.7.4/shiny.min.css" rel="stylesheet" />
+  <script src="shiny-javascript-1.7.4/shiny.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="bootstrap-3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="bootstrap-3.4.1/accessibility/css/bootstrap-accessibility.min.css" rel="stylesheet" />
+  <script src="bootstrap-3.4.1/js/bootstrap.min.js"></script>
+  <script src="bootstrap-3.4.1/accessibility/js/bootstrap-accessibility.min.js"></script>
+  <title>Tabs!</title>
+</head>
 
-If you build a prototype and save the HTML, you can use it directly in your Shiny app by placing it in a file named index.html in a subdirectory named <www>. This method will be very useful for those who are experienced with web development and find using R as an intermediary to be a hassle. By using a straight HTML file, you can avoid having to insert individual HTML elements in R.
+<body>
+  <div class="container-fluid">
+    <h2>Tabs!</h2>
+    <div class="row">
+      <div class="col-sm-4">
+        <form class="well" role="complementary">
+          <div class="form-group shiny-input-container">
+            <label class="control-label" id="box1-label" for="box1">Enter Tab 1 Text:</label>
+            <input id="box1" type="text" class="form-control" value="Tab 1!" />
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" id="box2-label" for="box2">Enter Tab 2 Text:</label>
+            <input id="box2" type="text" class="form-control" value="Tab 2!" />
+          </div>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" id="box3-label" for="box3">Enter Tab 3 Text:</label>
+            <input id="box3" type="text" class="form-control" value="Tab 3!" />
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-8" role="main">
+        <div class="tabbable">
+          <ul class="nav nav-tabs" data-tabsetid="4040">
+            <li class="active">
+              <a href="#tab-4040-1" data-toggle="tab" data-bs-toggle="tab" data-value="Tab 1">Tab 1</a>
+            </li>
+            <li>
+              <a href="#tab-4040-2" data-toggle="tab" data-bs-toggle="tab" data-value="Tab 2">Tab 2</a>
+            </li>
+            <li>
+              <a href="#tab-4040-3" data-toggle="tab" data-bs-toggle="tab" data-value="Tab 3">Tab 3</a>
+            </li>
+          </ul>
+          <div class="tab-content" data-tabsetid="4040">
+            <div class="tab-pane active" data-value="Tab 1" id="tab-4040-1">
+              <br />
+              <div id="out1" class="shiny-text-output"></div>
+            </div>
+            <div class="tab-pane" data-value="Tab 2" id="tab-4040-2">
+              <br />
+              <div id="out2" class="shiny-text-output"></div>
+            </div>
+            <div class="tab-pane" data-value="Tab 3" id="tab-4040-3">
+              <br />
+              <div id="out3" class="shiny-text-output"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+```
+
+In this example, we have three boxes labeled box1, box2, and box3. So, the input ID for Box 1 is "box1", for Box 2 it's "box2", and for Box 3 it's "box3". The _div_ statements are used because the Bootstrap style used by Shiny uses these blocky structures to create the default style.
+
+Moving on to the output, you can see that it references "out2" and has the class "shiny-text-output". If you're familiar with web development, you may have recognized the output class "shiny-text-output" already. Otherwise, building a Shiny prototype app and grabbing its HTML would give you enough information to work with. If you build a prototype and save the HTML, you can use it directly in your Shiny app by placing it in a file named index.html in a subdirectory named _www_. This method will be very useful for those who are experienced with web development and find using R as an intermediary to be a hassle. By using a straight HTML file, you can avoid having to insert individual HTML elements in R. However, you'll still need to use R to create the server-side logic.
 
 ### Shiny 2.6
 
-In this example, we'll demonstrate how to create an interactive graphic using the brush argument in the UI and brushedPoints argument in the server. The purpose is to highlight points in a scatter plot and show the fitted line just for those points. Interactive graphics are a key functionality of Shiny and one of its primary uses for analysis. Let's take a look at the code. We'll go through the various lines, but we encourage you to try it out yourself by copying and running the code. You'll likely gain a better understanding by doing so. We start with the standard layout, including a sidebar. The sidebar displays the slope and intercept using textOutput (intOut) and textOutput (slopeOut), respectively. We need to make sure to include both labels in the server function, otherwise they won't display correctly. Additionally, we create a plot in the server labeled plot1 and make sure to include plotOutput for it in the UI. The UI also includes an id of brush1 and the brushOpts for the brush options. We'll need to use the label brush1 on the server side. Next, let's examine the server function. The input and output lists are passed into the Shiny server. A reactive model is created that responds to changes in the data input from the user interface. The notation for reactive functions is inside curly braces and parentheses. The variable brushed_data is shorthand for retrieving the data from brush1 in the input. The brush points come from the trees dataset with Girth as the x-variable and Volume as the y-variable. If there are fewer than two points, it returns null, otherwise, it fits a linear model with Volume as the y-variable, Girth as the x-variable, and brushed_data as the data. The resulting linear model is output without parentheses because it's inside the reactive statement. In the Shiny server, we check if the model is fit or if the label output$slopeOut is present. We use the renderText function to let Shiny know that text will be displayed in the user interface. Inside the curly braces, we check if the slope is null, and if so, it will display "No Model Found". Otherwise, it will display the slope term. Alright, so let's dive into the code. The Shiny server takes in input and output lists. The model created in the server is reactive to the data entered by the user in the user interface. We use the notation of curly braces inside the parentheses for the reactive function. The brushed_data is shorthand for grabbing the data from brush1 input. We create a data frame with Girth and Volume variables from the trees dataset, and if there are fewer than two points, the function returns null. Otherwise, a linear model is fit where Volume is the y variable, Girth is the x variable, and the data is brushed_data. We don't need to put parentheses here because this is inside the reactive statement. If the model is fit, or output$slopeOut, which is a text label, then we use renderText to display it in the user interface. If it's null, then it says "No Model Found". Otherwise, it grabs the slope term. The same thing is done for the intercept term. We display plot1 using renderPlot, which has the reactive notation of having the curly braces inside the function argument. The plot shows Girth on the x-axis and Volume on the y-axis, with nice x and y labels and a title of "Tree Measurements". If the model is not null, it adds a line that is only for the specific data points through the model that was fit just on the points described from the brush. Now, let's run it and see how it looks.
+In this example, we'll demonstrate how to create an interactive graphic using the _brush_ argument in the UI and _brushedPoints_ argument in the server.
+The purpose is to highlight points in a scatter plot and show the fitted line just for those points. Interactive graphics are a key functionality of Shiny and one of its primary uses for analysis. Let's take a look at the code. We'll go through the various lines, but we encourage you to try it out yourself by copying and running the code. You'll likely gain a better understanding by doing so.
 
-We have run the application and observed that when no model is fit, the text output for slope and intercept correctly shows "No Model Found". If a cluster of points is highlighted, the slope and intercept are calculated and displayed as a line. If no points are selected, the text output again shows "No Model Found". A line is also displayed when all the data points are selected. This example shows the use of Shiny for creating interactive graphs. We encourage you to try to recreate this example and also create your own interactive graph using one of R's built-in datasets. Shiny has many uses, including input and output of data frames, as well as embedding RGL and RS 3D graphics library in a Shiny webpage using WebGL. Although these advanced features may be more specialized, you now have enough knowledge to get started and incorporate Shiny into your toolkit.
+
+
+
+
+We start with the standard layout, including a sidebar. The sidebar displays the slope and intercept using `textOutput (intOut)` and `textOutput (slopeOut)`, respectively. We need to make sure to include both labels in the server function, otherwise they won't display correctly. Additionally, we create a plot in the server labeled `plot1` and make sure to include `plotOutput` for it in the UI. The UI also includes an id of `brush1` and the `brushOpts` for the brush options. We'll need to use the label brush1 on the server side.
+
+Next, let's examine the server function. The input and output lists are passed into the Shiny server. A reactive model is created that responds to changes in the data input from the user interface. The notation for reactive functions is inside curly braces and parentheses. The variable `brushed_data` is shorthand for retrieving the data from brush1 in the input. The brush points come from the trees dataset with Girth as the x-variable and Volume as the y-variable. If there are fewer than two points, it returns null, otherwise, it fits a linear model with Volume ~ Girth for brushed data. The resulting linear model is output without parentheses because it's inside the reactive statement. In the Shiny server, we check if the model is fit or if the label output$slopeOut is present.
+We use the renderText function to let Shiny know that text will be displayed in the user interface. Inside the curly braces, we check if the slope is null, and if so, it will display "No Model Found". Otherwise, it will display the slope term. Now, again go ahead and run the app and see how it looks.
+
+We have run the application and observed that when no model is fit, the text output for slope and intercept correctly shows "No Model Found". If a cluster of points is highlighted, the slope and intercept are calculated and displayed as a line. If no points are selected, the text output again shows "No Model Found". A line is also displayed when all the data points are selected. This example shows the use of Shiny for creating interactive graphs. We encourage you to try to recreate this example and also create your own interactive graph using one of R's built-in datasets. Shiny has many uses, including input and output of data frames, as well as embedding RGL and RS 3D graphics library in a Shiny webpage using WebGL. Although these advanced features may be more specialized, you should now have enough understanding to get started and incorporate Shiny into your toolkit.
 
 ## Shiny Part 3
 
 ### ShinyUiEditor
 
-The Shiny Ui Editor is a user-friendly, visual tool designed to simplify the process of creating the user interface (UI) for Shiny applications. Its primary objective is to enable users to build the UI of their Shiny apps without the need to write code. This editor is particularly useful for individuals who may not be familiar with Shiny's UI functions that require HTML-style coding or who prefer a hassle-free approach for achieving proper layout without manually adjusting sizes. By utilizing the Shiny Ui Editor, users can effortlessly generate clean and easily understandable code for their Shiny app's UI, streamlining the development process. **Note:** According to the developers's [website](https://rstudio.github.io/shinyuieditor/) ShinyUiEditor currently is in the Alpha phase of development, which means it may be unstable, or some users may experience bugs while installing the package. However, we think it is still a useful tool for creating Shiny apps, and we encourage you to try it out. These problems will be resolved as the package is further developed. For more information on the Shiny Ui Editor, please visit the following link: <https://rstudio.github.io/shinyuieditor/>. This link will also provide you with instructions on how to install the Shiny Ui Editor package.
+The Shiny UI Editor is a user-friendly, visual tool designed to simplify the process of creating the user interface (UI) for Shiny applications. Its primary objective is to enable users to build the UI of their Shiny apps without the need to write code. This editor is particularly useful for individuals who may not be familiar with Shiny's UI functions that require HTML-style coding or who prefer a hassle-free approach for achieving proper layout without manually adjusting sizes. By utilizing the Shiny Ui Editor, users can effortlessly generate clean and easily understandable code for their Shiny app's UI, streamlining the development process. **Note:** According to the developers's [website](https://rstudio.github.io/shinyuieditor/) ShinyUiEditor currently is in the Alpha phase of development, which means it may be unstable, or some users may experience bugs while installing the package. However, we think it is still a useful tool for creating Shiny apps, and we encourage you to try it out. These problems will be resolved as the package is further developed. For more information on the Shiny Ui Editor, please visit the following link: <https://rstudio.github.io/shinyuieditor/>. This link will also provide you with instructions on how to install the Shiny Ui Editor package.
 
 #### Your first app in ShinyUiEditor
 
@@ -411,48 +693,115 @@ There some other packages that you can use as themes for your Shiny app to reach
 
 ### Shiny Gadgets 1.1
 
-In this lecture, we'll be discussing Shiny Gadgets and We want to acknowledge Shaun Cross from the Data Science Lab for creating these slides. Previously, we covered a package called Manipulate, which was created by our studio for easy and simple interactive data analysis. However, it seems that development on Manipulate has stopped and we have a hunch why. Shiny provides a superior way of achieving the same goal, and with Shiny Gadgets, you can do everything that Manipulate did, but within the RStudio program. So, let's delve into this topic.
+In this lecture, we'll be discussing Shiny Gadgets. I want to acknowledge Shaun Cross from the Data Science Lab for helping with this content. Previously, we covered a package called Manipulate, which was created by our studio for easy and simple interactive data analysis. However, it seems that development on Manipulate has stopped and we have a hunch why. Shiny provides a superior way of achieving the same goal, with Shiny Gadgets, you can do everything that Manipulate did, but within the RStudio program.
 
-The focus of this lecture is on Shiny Gadgets, which offer an easier and faster way to use Shiny's interactivity in data analysis. Unlike Shiny, which is suitable for creating forward-facing apps for a wider audience, Shiny Gadgets are primarily designed for use by us or a small group of people working on data analysis. To display the app on a small screen within our RStudio program, we'll use the mini UI package, which helps us create interfaces optimized for smaller screens. The core of a Shiny Gadget is a function that launches a small, single-page Shiny application in the RStudio viewer pane. Furthermore, since the Shiny Gadgets will be displayed in the RStudio viewer pane, the miniUI package is useful for creating interfaces that fit well on smaller screens. Next, we will create a basic Shiny Gadget and then simplify it as much as possible. Now, we will switch over to a code demonstration.
+The focus of this lecture is on Shiny Gadgets, which offer an easier and faster way to use Shiny's interactivity in data analysis. Unlike Shiny, which is suitable for creating forward-facing apps for a wider audience, Shiny Gadgets are primarily designed for use by us or a small group of people working on data analysis. To display the app on a small screen within our RStudio program, we'll use the mini UI package, which helps create interfaces optimized for smaller screens. The core of a Shiny Gadget is a function that launches a small, single-page Shiny application in the RStudio viewer pane. Furthermore, since the Shiny Gadgets will be displayed in the RStudio viewer pane, the miniUI package is useful for creating interfaces that fit well on smaller screens. Now, let's switch over to a code demonstration.
 
-Let's look into an example obtained from the code on the slides. To begin, we need to ensure that both Shiny and miniUI are loaded, and we can do this by installing the packages. If you have an older version of R, you may need to update it. The gadget is a function with a user interface and a server function, just like a Shiny app. The UI here uses miniPage, which is a layout from the miniUI library. We create a title bar element using the gadgetTitleBar command and call it "My First Gadget." The server function takes input, output, and session arguments. For now, it checks the input for the "done" variable and uses the observeEvent function to stop the app when it is true. It is important to note that the syntax for Shiny Gadgets is a bit different from regular R programming, but the rules of reactivity still apply. Finally, we use the runGadget function to run the gadget with the UI and server functions. Once we run the function, we see "My First Gadget" displayed in the viewer pane, and clicking "done" takes us back to the RPrompt. This is a good first step to becoming familiar with Shiny Gadgets, and more complex concepts will come naturally as we progress. To move on to the next video, please copy and run this code from the selection notes.
 
-The viewer has a few different arguments to display the gadget.
 
-1.  paneViewer: This is the default viewer, which displays the gadget in the viewer pane. runGadget(ui, server, viewer = paneViewer(minHeight = 500))
-2.  dialogViewer: This is the default viewer, which displays the gadget in a dialog box. runGadget(ui, server, viewer = dialogViewer("ggbrush"))
-3.  browserViewer: This is the default viewer, which displays the gadget in the RStudio browser. runGadget(ui, server, viewer = browserViewer())
+To begin, we need to ensure that both Shiny and miniUI are loaded, if you don't have these packages make sure you install them. The gadget is a function with a user interface and a server function, just like a Shiny app. The UI here uses miniPage, which is a layout from the miniUI library. We create a title bar element using the `gadgetTitleBar` command and call it _My First Gadget_. The server function takes input, output, and session arguments. For now, it checks the input for the `done` variable and uses the `observeEvent` function to stop the app when it is true. It is important to note that the syntax for Shiny Gadgets is a bit different from regular R programming, but the rules of reactivity still apply. Finally, we use the runGadget function to run the gadget with the UI and server functions. Once we run the function, we see "My First Gadget" displayed in the viewer pane, and clicking "done" takes us back to the RPrompt. This is a good first step to becoming familiar with Shiny Gadgets, and more complex concepts will come naturally as we progress.
 
 ### Shiny Gadgets 1.2
 
-The previous example we looked at was rather trivial, as it merely had a button to click and exit. It even had a built-in cancel button to stop the gadget and return to the R prompt. Now, we'll demonstrate how to add arguments to your Shiny Gadget. We'll keep it simple and show basic manipulations so that you can understand the coding process and apply it to your own application. Let's examine the code in detail. The code is divided into two parts due to space limitations. The first part contains the UI, which is again a mini page. The second part contains the server. Remember, we need to load two libraries. Our gadget's title will be "Multiply Two Numbers." The content panel will be a mini content panel, which will be the main body of the pane. The user interface will have a selector input, which will be a dropdown box with two variables labeled "num1" and "num2." We will use these names to reference them later. The labels and choices come from the two arguments in the function. Moving on to the server part, we will have input, output, and session. We will use the input\$done variable in the observe event to let Shiny know when it's done to quit. We must use curly braces in the correct place to avoid the most common mistake when coding Shiny applications. We will name num1 and num2 as the input values to make them easier to work with. We will then multiply them together, and the stopApp function will tell Shiny to stop and display the result of num1 multiplied by num2. Remember to include the runGadget function, which specifies the UI and server. Although you could technically name UI and server something else, it is not conventionally done. Let's now look at the code demonstration and see how it works. Let's review the function that we copied from the R markdown document and make sure the necessary libraries are loaded. Now let's execute the function. Although we have already gone over the components, let's see what happens when we run it. As expected, nothing happens because we have just defined the function. Let's give the numbers 1 to 10 as choices for both selector inputs. Suppose we want to check our multiplication tables, so let's choose 4 and 7 and hopefully get the result of 28. Once we click "Done", we will return to the R pane where we should see the result of 28. This is just the first step towards creating something useful. We have been able to select from choices and perform numerical manipulations. we hope you can see where Shiny gadgets can be useful for you. In the next step, we will create an interactive graphic.
+The previous example we looked at was rather trivial, as it merely had a button to click and exit. It even had a built-in cancel button to stop the gadget and return to the R prompt. Now, we'll demonstrate how to add arguments to your Shiny Gadget. We'll keep it simple and show basic manipulations so that you can understand the coding process and apply it to your own application. To proceed with this section, please copy and run the following code.
+
+
+
+Let's examine the code in detail. The code is divided into two parts due to space limitations. The first part contains the UI, which is a mini page and the second part contains the server. Our gadget's title will be _Multiply Two Numbers_. The content panel will be a mini content panel, which will be the main body of the pane. The user interface will have a selector input, which will be a dropdown box with two variables labeled `num1` and `num2`. We will use these names to reference them later. The labels and choices come from the two arguments in the function. Moving on to the server part, we will have input, output, and session. We will use the `input$done` variable in the observe event to let Shiny know when it's time to quit. We must use curly braces in the correct place to avoid the most common mistake when coding Shiny applications. We will name `num1` and `num2` as the input values to make them easier to work with. We will then multiply them together, and the stopApp function which will tell Shiny to stop and display the result of `num1` multiplied by `num2`. Remember to include the `runGadget` function, which specifies the UI and server. Try running the function with inputs like `multiplyNumbers(1:10,1:10)`. Suppose we want to check our multiplication tables, if we choose 4 and 7 we will get the result of 28. Once we click "Done", we will return to the R pane where we should see the result of 28. This is a simple example, but it demonstrates how to use Shiny Gadgets to create interactive applications. Now, let's look at some other viewers that we can use to display our gadgets.
+
+1.  paneViewer: This is the default viewer, which displays the gadget in the viewer pane.
+    `runGadget(ui, server, viewer = paneViewer(minHeight = 500))`
+2.  dialogViewer: This is the default viewer, which displays the gadget in a dialog box.
+    `runGadget(ui, server, viewer = dialogViewer("ggbrush"))`
+3.  browserViewer: This is the default viewer, which displays the gadget in the RStudio browser.
+    `runGadget(ui, server, viewer = browserViewer())`
 
 ### Shiny Gadgets 1.3
 
-One of the most valuable features of Shiny gadgets is the ability to create interactive plots. As many of you are already familiar with Shiny syntax from our previous modules, we won't spend too much time revisiting that in the context of Shiny gadgets. Instead, we'll present one example, and with your understanding of Shiny and a little extra syntax for Shiny gadgets, you'll be able to construct and customize your own gadgets to meet your needs. In this example, our goal is to create an interactive plot of the trees dataset, specifically plotting the girth by volume. We want to have a crosshair that will allow us to select a rectangle on the plot, and then have our function output a data frame of the trees within that rectangle. We will now attempt to achieve this. As always, we need to load the Shiny and mini libraries. Our Shiny gadget is a function that requires a user interface (UI). For the UI, we will use the miniPage function from the mini package. We will have a gadgetTitleBar with the message "Select points by dragging your mouse" and a miniContentPanel containing a plot with the name "plot". We want the height to be 100% and we will name the crosshairs brush. Moving on to the server function, we will use the names "plot" and "brush" that we defined earlier. The output named "plot" will be created using the renderPlot function. We will plot the "girth" versus "volume" data from the "trees" dataset and label the plot with the title "trees" and axis labels "girth" and "volume". Next, we use observeEvent to collect the brush points and stop the app after a rectangle is selected from the "trees" dataset. The input will be "\$brush", which refers to the named input we defined earlier. The variables "xvar" and "yvar" need to be named correctly and matched to the corresponding names in the "trees" dataset. Finally, we call the runGadget function. By running this code, we can create a useful tool for selecting data points from a plot. We need to load the Shiny and mini UI libraries, define our Shiny gadget function named "pick trees", and use the UI and server functions that we have defined. Now we can execute the code. The function doesn't require any arguments. It starts the server and generates the plot. The plot allows me to select a collection of points by dragging the crosshair around. After I've made my selection, We can move the box around if we need to. Once we am satisfied with my selection, we click the "Done" button, and it returns the data points from my selection. To save the selected data points, we can assign them to a variable like treesIPicked, and then we can retrieve them later by calling the variable. This feature can be useful if you need to select specific data points, for example, to identify outliers in a data analysis. Note that the original data frame's row numbers are retained, enabling you to refer back to the data frame itself. To clarify about naming, suppose we named the plot "plot1" instead of "plot". If we rerun the code, the plot will not show up because we named it "plot" and not "plot1". Similarly, if we name the brush "brush1" instead of "brush", it will not output anything because it is looking for "input brush", not "input brush1", and "input brush" has no input. We hope these tools provide you with a good foundation to build your own Shiny gadgets. Learning how to build them is definitely worth it, especially for creating interactive graphics which can be extremely helpful. R has not historically excelled in this area, so having the add-on provided by RStudio is a valuable resource to have in your workflow. For this reason alone, it's worth taking the time to learn how to build and incorporate shiny gadgets into your work.
+One of the most valuable features of Shiny gadgets is the ability to create interactive plots. As many of you are already familiar with Shiny syntax from our previous modules, we won't spend too much time revisiting that in the context of Shiny gadgets. Instead, we'll present one example, and with your understanding of Shiny and a little extra syntax for Shiny gadgets, you'll be able to construct and customize your own gadgets to meet your needs.
+
+
+
+In this example, our goal is to create an interactive plot of the trees dataset, specifically plotting the girth by volume. We want to have a pair of crosshairs that will allow us to select a rectangle on the plot, and then have our function output a data frame of the trees within that rectangle. As always, we need to load the Shiny and mini libraries. Our Shiny gadget is a function that requires a user interface (UI). For the UI, we will use the miniPage function from the mini package. We will have a `gadgetTitleBar` with the message _Select points by dragging your mouse_ and a `miniContentPanel` containing a plot with the name _plot_. We want the height to be 100% and we will name the crosshairs `brush`.
+
+Moving on to the server function, we will use the names `plot` and `brush` that we defined earlier. The output named `plot` will be created using the `renderPlot` function. We will plot the `girth` versus `volume` data from the `trees` dataset and label the plot with the title `trees` and axis labels _girth_ and _volume_. Next, we use `observeEvent` to collect the brush points and stop the app after a rectangle is selected from the `trees` dataset. The input will be `input$brush`, which refers to the named input we defined earlier. The variables `xvar` and `yvar` need to be named correctly and matched to the corresponding names in the `trees` dataset. Finally, we call the `runGadget` function with `viewer = dialogViewer("ggbrush")` to display the plot in a popup window. By running this code, we can create a useful tool for selecting data points from a plot. Now we can source the function and call it. The function doesn't require any arguments. After We've made our selection, we can move the box around if we need to. Once satisfied with the selection, we click the "Done" button, and it returns the selected data points. To save the selected data points, we can assign them to a variable like `treesIPicked`, and then we can retrieve them later by calling the variable. This feature can be useful if you need to select specific data points, for example, to identify outliers in a data analysis. Note that the original data frame's row numbers are retained, enabling you to refer back to the data frame itself.
+
+We hope these tools provide you with a good foundation to build your own Shiny gadgets. Learning how to build them is definitely worth it, especially for creating interactive graphics which can be extremely helpful. R has not historically excelled in this area, so having the add-on provided by RStudio is a valuable resource to have in your workflow. For this reason alone, it's worth taking the time to learn how to build and incorporate shiny gadgets into your work.
 
 ### Shiny Gadgets 1.4
 
-In this section we introduce some functions which can provide you with more options to design a sophisticated gadget.
+In this section we will introduce some functions which can provide you with more design options towards a sophisticated gadget.
 
 #### miniTabstripPanel
 
-If your gadget is generating multiple outputs such as graphs, tables, maps, etc. you can use the miniTabstripPanel function to create a tabbed panel. This function allows you to create a tabbed panel with multiple tabs, each containing a different output. The miniTabstripPanel function takes a list of tab names and a list of tab contents as arguments. The tab names are displayed as the labels for each tab, and the tab contents are the UI elements that will be displayed within each tab. The miniTabstripPanel function is useful for organizing and presenting multiple outputs within a single gadget.
-
-#### fillRow/fillCol
-
-These functions are beneficial for partitioning an area into rows and columns that dynamically expand and contract in proportion to fill the available space. Unlike fluidRow and col functions, which do not adjust, fillRow/fillCol offer growth and shrinkage capabilities.You can get creative with these functions and use them to create a variety of layouts for your gadget. For example
+If your gadget is generating multiple outputs such as graphs, tables, maps, etc. you can use the `miniTabstripPanel` function to create a tabbed panel. This function allows you to create a tabbed panel with multiple tabs, each containing a different output. The miniTabstripPanel function takes a list of tab names and a list of tab contents as arguments. The tab names are displayed as the labels for each tab, and the tab contents are the UI elements that will be displayed within each tab. The miniTabstripPanel function is useful for organizing and presenting multiple outputs within a single gadget.
+Here is an example of a gadget that uses the miniTabstripPanel function to create a tabbed panel with two tabs. The first tab contains a plot, and the second tab contains a table.
 
 
 ```r
-fillRow(
-  fillCol(a, b),
-  fillCol(c, d, e)
-)
+library(shiny)
+library(miniUI)
+
+multipanel<-function(){
+  ui <- miniPage(
+  gadgetTitleBar("My Shiny Gadget"),
+  miniTabstripPanel(
+      miniTabPanel("Plot", icon = icon("area-chart"),
+                   miniContentPanel(
+                     plotOutput("plot")),
+                  ),
+      miniTabPanel("Data", icon = icon("table"),
+                   miniContentPanel(
+                     dataTableOutput("table")
+                   )
+                   )
+      )
+  )
+
+server <- function(input, output, session) {
+  output$plot <- renderPlot({
+    plot(trees$Girth, trees$Volume, main = "Trees!",
+         xlab = "Girth", ylab = "Volume")
+    })
+  output$table <- renderDataTable({
+    diamonds[1:50,]
+    })
+  observeEvent(input$done, {
+    stopApp(TRUE)
+    })
+  }
+runGadget(ui, server,viewer = dialogViewer("ggbrush"))
+}
 ```
 
-will generate two columns the left one with two rows and the right one with three rows.
+#### fillRow/fillCol
 
-## Quiz 1
+These functions are beneficial for partitioning an area into rows and columns that dynamically expand and contract in proportion to fill the available space. Unlike `fluidRow` and col functions, which do not adjust, `fillRow` and `fillCol` offer growth and shrinkage capabilities.You can get creative with these functions and use them to create a variety of layouts for your Shiny app or Shiny gadget.
 
-Have to add the quiz here!
+
+```r
+library(shiny)
+library(miniUI)
+
+multipanel<-function(){
+  ui <- miniPage(fillRow(
+    plotOutput("plotLeft", height = "100%"),
+    fillCol(
+      plotOutput("plotTopRight", height = "100%"),
+      plotOutput("plotBottomRight", height = "100%")
+    )
+  ))
+
+  server <- function(input, output, session) {
+    cut_graph = qplot(cut, data = diamonds) +
+      ggtitle("Quality of cut")
+    output$plotLeft <- renderPlot(qplot(x=carat, y=price, facets=.~cut, data=diamonds))
+    output$plotTopRight <- renderPlot(cut_graph)
+    output$plotBottomRight <- renderPlot(hist(diamonds$price))
+  }
+
+  runGadget(ui, server,viewer = dialogViewer("ggbrush"))
+}
+```
+
+The code above will generate two columns the left one with single row and the right one with two rows.
