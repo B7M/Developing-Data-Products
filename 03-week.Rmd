@@ -381,7 +381,7 @@ In addition to "polygon" method, there is also a default method denoted by "ANY"
 
 Here we are creating a new object of the polygon class and plotting it.
 
-```{r, eval=T, echo=T}
+```{r, eval=F, echo=T}
 p <- new("polygon", x = c(1, 2, 3, 4), y = c(1, 2, 3, 1))
 plot(p)
 ```
