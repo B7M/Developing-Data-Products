@@ -265,30 +265,11 @@ shinyServer(function(input, output) {
 
 In Shiny, a function needs to have curly braces and it needs to be closed with both curly braces and the shiny server parenthesis. The function takes input from the UI, which is the shiny UI function. The function takes in \$slider and renders it, displaying the text. We can name the output text. In the UI.R, in the main Panel, we specify that the slider value is displayed and the text output is text. This ensures that the same text we labeled from the output in the server function will be displayed in the name panels. When we run the code, we can move the slider and see the slider value displayed.
 
-```{r, echo=F}
-library(shiny)
-shinyApp(
-  ui<-fluidPage(
-    titlePanel("Slider App"),
-    sidebarLayout(
-      sidebarPanel(
-        h1("Move the Slider!"),
-        sliderInput("slider1", "Slide Me!", 0, 100, 0)
-      ),
-      mainPanel(
-        h3("Slider Value:"),
-        textOutput("text")
-      )
-    )
-  ),
-
-  server<- function(input, output) {
-    output$text <- renderText(input$slider1)
-  },
-  options = list(height = 500)
-)
-
+```{r, eval=T, echo=T}
+knitr::include_app("https://yihui.shinyapps.io/miniUI/",
+  height = "600px")
 ```
+
 
 It's important to note that there's nothing special about having the slider in the side bar panel and the text in the main panel. The order isn't significant either. The code for the slider and the output could be in different panels and still work fine. This is an important concept to keep in mind when working with Shiny and reactive expressions. You don't want to think about it running linearly like a regular R program because the server is running reactively and constantly going back and forth. To be comfortable with Shiny your mindset needs to change a bit from regular R programming. It's still a program, but it's more interactive. One thing to note is that if we were to label the text output \$text1 instead of \$text, it wouldn't display anything. This is because the UI is looking for text when it says textOutput. Similarly, if we were to label the slider \$slider1 instead of \$slider, it wouldn't display anything because the render text from the server function is looking for \$slider1, but the UI hasn't put out anything labeled slider1. It's important to remember that your labels need to match up for everything to work properly.
 
