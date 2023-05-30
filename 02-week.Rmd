@@ -424,14 +424,14 @@ plot_ly(mtcars, x = mtcars$weight, y = mtcars$mpg, color = mtcars$disp, mode = "
 ```
 ````
 
-```{r, eval=TRUE, echo=False}
+```{r, eval=TRUE, echo=FALSE}
 
 library(plotly)
 plot_ly(mtcars, x = mtcars$weight, y = mtcars$mpg, color = as.factor(mtcars$cyl), mode = "markers")
 ```
 
 Continuous color gradient:
-```{r, eval=TRUE, echo=False}
+```{r, eval=TRUE, echo=FALSE}
 library(plotly)
 plot_ly(mtcars, x = mtcars$weight, y = mtcars$mpg, color = mtcars$disp, mode = "markers")
 ```
