@@ -365,6 +365,7 @@ Here is an example of the Quarto document we describe above.
 install.packages("plotly")
 install.packages("tidyr") 
 install.packages("dplyr") 
+install.packages("leaflet")
 ```
 ````
 ---
