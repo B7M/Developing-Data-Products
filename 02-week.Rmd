@@ -362,9 +362,9 @@ In this section we will walk you through a Quarto document associated with the P
 
 Here is an example of the Quarto document we describe above.
 ```{r, eval=TRUE, echo=FALSE}
-instal.packages("plotly")
-instal.packages("tidyr") 
-instal.packages("dplyr") 
+install.packages("plotly")
+install.packages("tidyr") 
+install.packages("dplyr") 
 ```
 ````
 ---
