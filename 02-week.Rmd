@@ -320,7 +320,7 @@ Here is an example of the Quarto document we describe above.
 cat('---\ntitle: "How Plotly Works"\nauthor: "Your name!"\nformat:\n    revealjs:\n        self-contained: true\neditor: visual\n---\n\n## This slide contains R code!\n\n```{r}\n#| echo: true\n#| eval: true\n\nlibrary(plotly)\nplot_ly(mtcars, x = mtcars$wt, y = mtcars$mpg, color = as.factor(mtcars$cyl), mode = "markers")\n\n```\n##\n```{r}\n#| echo: true\n#| eval: true\nplot_ly(mtcars, x = mtcars$weight, y = mtcars$mpg, color = mtcars$disp, mode = "markers")\n\n```')
 ````
 
-```{r, eval=FALSE, echo=FALSE}
+```{r, eval=T, echo=FALSE}
 ### FALSE
 library(plotly)
 plot_ly(mtcars, x = mtcars$weight, y = mtcars$mpg, color = as.factor(mtcars$cyl), mode = "markers")
