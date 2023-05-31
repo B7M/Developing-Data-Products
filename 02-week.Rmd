@@ -1,8 +1,3 @@
----
-output:
-  word_document:
-    always_allow_html: true
----
 ```{r, setup, include=FALSE}
 knitr::opts_chunk$set(
   comment = '')
@@ -435,22 +430,24 @@ plot_ly(mtcars, x = mtcars$weight, y = mtcars$mpg, color = mtcars$disp, mode = "
 ```
 ````
 
-```{r, eval=TRUE, echo=FALSE}
-
+```{r, eval=FALSE, echo=FALSE}
+### FALSE
 library(plotly)
 plot_ly(mtcars, x = mtcars$weight, y = mtcars$mpg, color = as.factor(mtcars$cyl), mode = "markers")
 ```
 
 Continuous color gradient:
 
-```{r, eval=TRUE, echo=FALSE}
+```{r, eval=FALSE, echo=FALSE}
+### FALSE
 library(plotly)
 plot_ly(mtcars, x = mtcars$weight, y = mtcars$mpg, color = mtcars$disp, mode = "markers")
 ```
 
 Let’s look into a 3D scatterplot. We will show the code and display the plot, and then we will explain what it's doing.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library (plotly)
 set.seed(2016-07-21)
 temp <- rnorm(100, mean = 30, sd = 5)
@@ -474,14 +471,16 @@ time(airmiles)
 
 To create the line graph using Plotly, we simply use the `plot_ly` command with the "x" argument set to the time variable and the "y" argument set to "airmiles". Since these variables are in our environment, we don't need to specify a data frame. Once we plot the data, we get a time series chart with the added feature of showing the corresponding x and y values when the mouse hovers over the plot. This type of chart is often used to display market indices, such as the S&P 500.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 data("airmiles")
 plot_ly(x = ~time(airmiles), y = ~airmiles, type = "scatter", mode = "lines")
 ```
 
 Now, let's create a multi-line graph using stock market data. We'll need to use the `tidyr` and `dplyr` libraries for data manipulation. The `EuStockMarkets` dataset contains market indices from Germany, Switzerland, France, and Britain. To create the plot, we first convert the dataset into a data frame using the `as.data.frame` command. Then, we use the `gather` command to convert the data into a format suitable for plotting. The resulting data frame can be used with the `plot_ly` command to create a multi-line graph. Note that the original data EuStockMarkets is not a data frame, as you can check by the output of `is.data.frame(EuStockMarkets)`. However, after converting it to a data frame and then applying the `gather` command, we have transformed the data from a short format to a long format. In the long format, there is a variable called index which corresponds to the column name of the data points in the original data. Although this format may not be as convenient for display purposes, it is necessary for plot_ly to display multiple lines, as it requires a single data frame with a factor variable that demarcates the different lines.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(plotly)
 library(tidyr)
 library(dplyr)
@@ -499,21 +498,24 @@ Therefore, we first need to convert it into a data frame using the command `stoc
 
 The following examples are straightforward, so we won't provide any code demonstrations. Instead, we will show you the resulting output. To create a histogram in plot_ly, you only need to specify the x variable and set the type to `"histogram"`. The output will show the height of the bars as you move the mouse along. Additionally, you can customize the colors, create side-by-side histograms, and perform a variety of other actions in plot_ly.
 
-```{r eval=T, echo=F}
+```{r eval=F, echo=F}
+### FALSE
 library(plotly)
 plot_ly(x = ~precip, type = "histogram")
 ```
 
 For a boxplot, you'll need to provide the plot_ly data frame (in this example, it's the iris dataset), set the y variable to petal length, specify the color as species, and set the type to `"box"`. This will generate separate boxplots for each species. When you hover over the boxplot, it'll display values such as the 25th percentile, 75th percentile, and median. The whiskers extend out to 1.5 times the distance between these two values, as per Tukey's idea, which refers back to the normal distribution and the 1.5 times the inter-quartile range. If there's an outlier, plot_ly will display a little point to indicate it.
 
-```{r eval=T, echo=F}
+```{r eval=F, echo=F}
+### FALSE
 library(plotly)
 plot_ly(iris, y = ~Petal.Length, color = ~Species, type = "box")
 ```
 
 A heat map is essentially a graphical representation of an image. To create one using plot_ly, generate a matrix with random normal values and specify z=matrix, type="heatmap". The result will be an interactive heat map with a color key on the right-hand side.
 
-```{r eval=T, echo=F}
+```{r eval=F, echo=F}
+### FALSE
 library(plotly)
 terrain1 <- matrix(rnorm(100*100), nrow = 100, ncol = 100)
 
@@ -522,7 +524,8 @@ plot_ly(z = ~terrain1, type = "heatmap")
 
 As you move your mouse around, plot_ly will display x and y values and the corresponding intensity values. We can create a similar dataset as before, but with different random normal values. Next, instead of plotting the intensity values as colors, we can plot them in a third dimension as a surface. To do this, we set the type as `"surface"` and specify the z values as the intensity values. The row and column values are assigned integers for the x and y values. The resulting plot is a 3D surface.
 
-```{r eval=T, echo=F}
+```{r eval=F, echo=F}
+### FALSE
 library(plotly)
 terrain2 <- matrix(sort(rnorm(100*100)), nrow = 100, ncol = 100)
 
@@ -535,7 +538,8 @@ It's worth noting that when plotting a 3D surface, there is some smoothing invol
 
 Here we will create a map with some interactive hover-over effects. The code in this example is a bit long, so we won't go over every detail. First, let's create the dataset.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(plotly)
 # Create data frame
 state_pop <- data.frame(State = state.abb, Pop = as.vector(state.x77[,1]))
@@ -571,7 +575,8 @@ If you want to create your own map, start by using this data frame, which has mo
 
 If you're a fan of `ggplot`, then you might like this code from the Plotly website. We are using the diamond dataset to create a ggplot of carat vs. price. What's cool is that Plotly has a function called `ggplotly` that allows you to easily convert a ggplot into an interactive HTML graphic. The top window shows the ggplot in the RStudio plotting pane, while the bottom window displays it as an HTML graphic in the RStudio viewer pane, just like it would appear in a web browser.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(ggplot2)
 library(plotly)
 set.seed (100)
