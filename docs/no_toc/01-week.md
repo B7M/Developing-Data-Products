@@ -85,14 +85,6 @@ Your final grade will be calculated as follows:
 
 Keep in mind that currently data analysis is as much art as it is science - so we may have a difference of opinion - and that is ok! Please refrain from angry, sarcastic, or abusive comments on the message boards. Our goal is to create a supportive community that helps the learning of all students, from the most advanced to those who are just seeing this material for the first time.
 
-#### Plagiarism
-
-Johns Hopkins University defines plagiarism as "...taking for one's own use the words, ideas, concepts or data of another without proper attribution. Plagiarism includes both direct use or paraphrasing of the words, thoughts, or concepts of another without proper attribution." We take plagiarism very seriously, as does Johns Hopkins University.
-
-We recognize that many students may not have a clear understanding of what plagiarism is or why it is wrong. Please see the JHU referencing guide for more information on plagiarism.
-
-It is critically important that you give people/sources credit when you use their words or ideas. If you do not give proper credit -- particularly when quoting directly from a source -- you violate the trust of your fellow students.
-
 ### Some Basics
 
 A couple of first week housekeeping items. First, make sure that you've completed R Programming and the Data Scientist's Toolbox course. Reproducible Research would be helpful, but is not mandatory. At a minimum you must know: very basic git, basic R and very basic knitr.
@@ -265,9 +257,13 @@ shinyServer(function(input, output) {
 In Shiny, a function needs to have curly braces and it needs to be closed with both curly braces and the shiny server parenthesis. The function takes input from the UI, which is the shiny UI function. The function takes in \$slider and renders it, displaying the text. We can name the output text. In the UI.R, in the main Panel, we specify that the slider value is displayed and the text output is text. This ensures that the same text we labeled from the output in the server function will be displayed in the name panels. When we run the code, we can move the slider and see the slider value displayed.
 
 
-```{=html}
-<div style="width: 100% ; height: 500px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
+```r
+knitr::include_app("https://yihui.shinyapps.io/miniUI/",
+  height = "600px")
 ```
+
+<iframe src="https://yihui.shinyapps.io/miniUI/?showcase=0" width="672" height="600px"></iframe>
+
 
 It's important to note that there's nothing special about having the slider in the side bar panel and the text in the main panel. The order isn't significant either. The code for the slider and the output could be in different panels and still work fine. This is an important concept to keep in mind when working with Shiny and reactive expressions. You don't want to think about it running linearly like a regular R program because the server is running reactively and constantly going back and forth. To be comfortable with Shiny your mindset needs to change a bit from regular R programming. It's still a program, but it's more interactive. One thing to note is that if we were to label the text output \$text1 instead of \$text, it wouldn't display anything. This is because the UI is looking for text when it says textOutput. Similarly, if we were to label the slider \$slider1 instead of \$slider, it wouldn't display anything because the render text from the server function is looking for \$slider1, but the UI hasn't put out anything labeled slider1. It's important to remember that your labels need to match up for everything to work properly.
 
