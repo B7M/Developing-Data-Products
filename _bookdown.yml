@@ -8,4 +8,3 @@ language:
   ui:
     chapter_name: "Chapter"
 output_dir: "docs"
-always_allow_html: true
