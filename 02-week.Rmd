@@ -68,31 +68,13 @@ Let's take a look at the preamble section surrounded by three dashes. It is extr
 In body part you see two main sections these two the text section and code chunks. The code chunks are like a window to R and you will generate the results of your analysis and graphs using the code chunks. You can start a code chunk using using the following structure:
 
 ```{r,eval=T, echo=F}
-cat("---
-title: "Title of your document"
-author: "The author"
-format: html
-editor: visual
----
-
-```{r}
-
-# your code
-
-```")
+cat('---\ntitle: "Title of your document"\nauthor: "The author"\nformat: html\neditor: visual\n---\n\n```{r}\n\n# your code\n\n```')
 ```
 
 If you just make a Quarto file with the provided template and render it you will see there are two files created in the same directory as your Quarto file. The first one is the HTML file, the second one is a folder with `_files` in its name. The HTML file is the output of your Quarto file. The folder is where all the images and plots will be saved and it is necessary to open the html file properly. However; we usually are interested in one single file that is self contained. To address this issue we need to edit the YAML part to look like the following:
 
-```
----
-title: "Title of your document"
-author: "The author"
-format:
-    html:
-        self-contained: true
-editor: visual
----
+```{r, eval=T, echo=F}
+cat('---\ntitle: "Title of your document"\nauthor: "The author"\nformat:\n\thtml:\n\t\tself-contained: true\neditor: visual\n---')
 ```
 
 It is important to note that the YAML part is very sensitive to indentation and you should be careful about it. Now if you render your Quarto file you will see there is only one HTML file created. This is the file you can share with others and it is self contained.
