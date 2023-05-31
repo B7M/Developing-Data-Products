@@ -464,7 +464,8 @@ This is another way to add a dimension to a scatter plot. The plot is created us
 
 Let's discuss a different type of chart, the line graph. To illustrate this, let's use the `airmiles` dataset, which is a time series with values corresponding to each year. We can confirm this by typing `data("airmiles")` and then `time(airmiles)` to see the associated times.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 data("airmiles")
 time(airmiles)
 ```
