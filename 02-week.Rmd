@@ -10,7 +10,7 @@ install.packages(pkgs)
 # Second week
 
 During this module, we'll learn how to create Quarto files. We'll also explore `leaflet` and `plotly` and their usage to create interactive content.
-Learning Objectives
+Learning Objectives 
 Create Quarto file
 Employ R code in a Quarto file
 Create a map using Leaflet
