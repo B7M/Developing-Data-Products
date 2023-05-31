@@ -58,7 +58,7 @@ Let's take a look at the preamble section surrounded by three dashes. It is extr
 
 In body part you see two main sections these two the text section and code chunks. The code chunks are like a window to R and you will generate the results of your analysis and graphs using the code chunks. You can start a code chunk using using the following structure:
 
-````{eval=FALSE, echo=TRUE}
+````{r,eval=FALSE, echo=TRUE}
 ---
 title: "Title of your document"
 author: "The author"
@@ -263,7 +263,7 @@ To specify the image size we will add `{width=300}` right after the image file n
 
 Let's add some code to our document. To do so, we will use the structure that we showed you before. For example let's say you are intrested in displaying the `mtcars` dataset in a slide.
 
-````
+````{r, eval=FALSE, echo=TRUE}
 ---
 title: "Title of your document"
 author: "The author"
@@ -284,7 +284,7 @@ head(mtcars)
 
 Now, let's play around with some options. By default, the `echo` option was set to false, which means that it didn't show the code that generated the output. If you wish to include the code in a slide you should set `echo` to `true` and regenerate the presentation, you'll see it shows both the output and the code that generated it.
 
-````
+````{r, eval=FALSE, echo=TRUE}
 ---
 title: "Title of your document"
 author: "The author"
@@ -307,7 +307,7 @@ plot(mtcars$mpg)
 
 On the other hand, if we want to show the code but not evaluate it, we can set `eval` to `false`.
 
-````
+````{r, eval=FALSE, echo=TRUE}
 ---
 title: "Title of your document"
 author: "The author"
@@ -367,7 +367,7 @@ install.packages("tidyr")
 install.packages("dplyr") 
 install.packages("leaflet")
 ```
-````
+````{r, eval=FALSE, echo=TRUE}
 ---
 title: "How Plotly Works"
 author: "Your name!"
@@ -397,7 +397,7 @@ Let's explore some options for scatter plotting in plot_ly, as scatter plots are
 Currently, the points in the scatter plot appear small, almost invisible when outputted to an HTML file. If you wish to explore the option of changing the point size in scatter plots using plot_ly you can change the size of the points using a continuous variable, in this case, `horsepower`. Each point will have a different size based on its horsepower. Color is already being used to represent the cylinder. By changing the size of the points, we can show four dimensions in the same plot: miles per gallon, weight, cylinders, and horsepower. However, since we're limited to a 2D scatter plot, color and size are the only two dimensions we can display along with the x and y coordinates. 
 
 Here is an example of the Quarto document we describe above.
-````
+````{r, eval=FALSE, echo=TRUE}
 ---
 title: "How Plotly Works"
 author: "Your name!"
