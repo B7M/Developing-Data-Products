@@ -315,7 +315,7 @@ Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
 Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 ```
-````
+``````
 
 Now, let's play around with some options. By default, the `echo` option was set to false, which means that it didn't show the code that generated the output. If you wish to include the code in a slide you should set `echo` to `true` and regenerate the presentation, you'll see it shows both the output and the code that generated it.
 
@@ -355,7 +355,7 @@ plot(mtcars$mpg)
 ```
 
 <img src="02-week_files/figure-html/unnamed-chunk-14-1.png" width="672" />
-````
+`````
 
 On the other hand, if we want to show the code but not evaluate it, we can set `eval` to `false`.
 
@@ -395,7 +395,7 @@ plot(mtcars$mpg)
 ```
 
 <img src="02-week_files/figure-html/unnamed-chunk-16-1.png" width="672" />
-````
+```````
 
 Now, it's your turn to try it out. Create a slide with some R code and experiment with different options to see how they affect the output. In the next section, we'll cover how to include figures in our presentations.
 
