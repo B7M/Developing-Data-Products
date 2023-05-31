@@ -162,7 +162,8 @@ Now if you render the code you will see a slide with some content and a slide wi
 
 The following code summarizes all the mentioned points and you can use it as a template for your presentations.
 
-```
+
+```r
 ---
 title: "Title of your document"
 author: "The author"
@@ -283,7 +284,7 @@ To specify the image size we will add `{width=300}` right after the image file n
 Let's add some code to our document. To do so, we will use the structure that we showed you before. For example let's say you are intrested in displaying the `mtcars` dataset in a slide.
 
 
-```r
+```html
 ---
 title: "Title of your document"
 author: "The author"
@@ -294,6 +295,7 @@ editor: visual
 ---
 
 ## This slide contains R code
+
 ```
 
 ```r
@@ -314,7 +316,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 Now, let's play around with some options. By default, the `echo` option was set to false, which means that it didn't show the code that generated the output. If you wish to include the code in a slide you should set `echo` to `true` and regenerate the presentation, you'll see it shows both the output and the code that generated it.
 
 
-```r
+```html
 ---
 title: "Title of your document"
 author: "The author"
@@ -325,6 +327,7 @@ editor: visual
 ---
 
 ## This slide contains R code that will be displaye with the results!
+
 ```
 
 ```r
@@ -347,7 +350,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 plot(mtcars$mpg)
 ```
 
-![](02-week_files/figure-docx/unnamed-chunk-13-1.png)<!-- -->
+![](02-week_files/figure-docx/unnamed-chunk-14-1.png)<!-- -->
 ````
 
 On the other hand, if we want to show the code but not evaluate it, we can set `eval` to `false`.
@@ -387,27 +390,8 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 plot(mtcars$mpg)
 ```
 
-![](02-week_files/figure-docx/unnamed-chunk-15-1.png)<!-- -->
+![](02-week_files/figure-docx/unnamed-chunk-16-1.png)<!-- -->
 ````
 
 Now, it's your turn to try it out. Create a slide with some R code and experiment with different options to see how they affect the output. In the next section, we'll cover how to include figures in our presentations.
-
-### A few Ways to Share Quarto Products
-
-If you are dealing with a small group who have access to R you can simply share the R code and the Quarto file or just the Quarto rendered as HTML file and simply email it to a colleague. If they don't have access to R, or you don't wat to share your code you can share the HTML file. Furthermore, if you wish to share the HTML file with a wider audience, you can host it on a website. There are several options for doing this. Quarto provides numerous options for publishing documents, presentations, and websites created with it. As Quarto renders content in standard formats such as HTML, PDFs, MS Word, and more, you can publish your work virtually anywhere.
-
-Moreover, Quarto offers a convenient "quarto publish" command that enables straightforward publishing to popular services like GitHub, Netlify, Posit Connect, and others. Additionally, there are various tools available to simplify publishing from a Continuous Integration (CI) system.
-According to [Quarto websit](https://quarto.org/docs/publishing/) the following are the most common ways to publish Quarto documents:
-
-- [Quarto Pub](https://quarto.org/docs/publishing/quarto-pub.html)
-- [GitHub Pages](https://quarto.org/docs/publishing/github-pages.html)
-- [Posit Connect](https://quarto.org/docs/publishing/rstudio-connect.html)
-- [Netlify](https://quarto.org/docs/publishing/netlify.html)
-- [Confluence](https://quarto.org/docs/publishing/confluence.html)
-
-[Quarto Pub](https://quarto.org/docs/publishing/quarto-pub.html) is the recommended method for beginners
-
-To publish your slides on GitHub, you can create a repository and push your Quarto and HTML files to it. When you click on the Quarto file in GitHub, it does a lot of the formatting for you. You can see what the bullets and various points are going to look like. When you click on the HTML file, it shows you the raw HTML, not the rendered presentation. Okay, let's discuss how to render the HTML file. There are different ways to do it, such as using a Chrome or Firefox add-on, but you can also publish your slides through GitHub Pages. If you encounter any issues, read up on [GitHub Pages](https://quarto.org/docs/publishing/github-pages.html).
-
-That's all the information about Quarto we need for this class. We'll see you in the next lesson.
 
