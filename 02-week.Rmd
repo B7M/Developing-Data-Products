@@ -58,7 +58,7 @@ Let's take a look at the preamble section surrounded by three dashes. It is extr
 
 In body part you see two main sections these two the text section and code chunks. The code chunks are like a window to R and you will generate the results of your analysis and graphs using the code chunks. You can start a code chunk using using the following structure:
 
-````
+````{eval=FALSE, echo=TRUE}
 ---
 title: "Title of your document"
 author: "The author"
