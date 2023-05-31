@@ -273,7 +273,7 @@ To specify the image size we will add `{width=300}` right after the image file n
 
 Let's add some code to our document. To do so, we will use the structure that we showed you before. For example let's say you are intrested in displaying the `mtcars` dataset in a slide.
 
-````{html, eval=FALSE, echo=TRUE}
+``````{html, eval=FALSE, echo=TRUE}
 ---
 title: "Title of your document"
 author: "The author"
@@ -290,11 +290,11 @@ editor: visual
 head(mtcars)
 
 ```
-````
+``````
 
 Now, let's play around with some options. By default, the `echo` option was set to false, which means that it didn't show the code that generated the output. If you wish to include the code in a slide you should set `echo` to `true` and regenerate the presentation, you'll see it shows both the output and the code that generated it.
 
-````{html, eval=FALSE, echo=TRUE}
+`````{html, eval=FALSE, echo=TRUE}
 ---
 title: "Title of your document"
 author: "The author"
@@ -313,11 +313,11 @@ head(mtcars)
 plot(mtcars$mpg)
 
 ```
-````
+`````
 
 On the other hand, if we want to show the code but not evaluate it, we can set `eval` to `false`.
 
-````{r, eval=FALSE, echo=TRUE}
+```````{r, eval=FALSE, echo=TRUE}
 ---
 title: "Title of your document"
 author: "The author"
@@ -337,7 +337,7 @@ head(mtcars)
 plot(mtcars$mpg)
 
 ```
-````
+```````
 
 Now, it's your turn to try it out. Create a slide with some R code and experiment with different options to see how they affect the output. In the next section, we'll cover how to include figures in our presentations.
 
