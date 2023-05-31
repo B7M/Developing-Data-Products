@@ -23,4 +23,4 @@ render-coursera: no
 # The default is jhudsl/base_ottr:main
 rendering-docker-image: 'jhudsl/base_ottr:main'
 
-runtime: shiny
+always_allow_html: true
