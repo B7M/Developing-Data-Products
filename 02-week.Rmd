@@ -3,32 +3,7 @@ knitr::opts_chunk$set(
   comment = '')
 ```
 
-```{r, include=FALSE}
-if (!require('plotly')) 
-{
-  install.packages('plotly');
-  library(plotly);
-}
 
-if (!require('tidyr')) 
-{
-  install.packages('tidyr');
-  library(tidyr);
-}
-
-if (!require('dplyr')) 
-{
-  install.packages('dplyr');
-  library(dplyr);
-}
-
-if (!require('leaflet')) 
-{
-  install.packages('leaflet');
-  library(leaflet);
-}
-
-```
 # Second week
 
 During this module, we'll learn how to create Quarto files. We'll also explore `leaflet` and `plotly` and their usage to create interactive content.
