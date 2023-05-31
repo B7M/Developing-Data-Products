@@ -607,7 +607,8 @@ For more information about plotly, you can visit:
 
 Creating interactive maps is crucial in developing data products. One widely used JavaScript library for this is `Leaflet`, which also has an associated R package that enables the creation of interactive maps in the R environment. Using Leaflet within RStudio is especially convenient as it opens up in the RStudio window. While there are other ways to create interactive maps, such as GoogleVis, Leaflet is popular among the R community. To get started with Leaflet, you should first install the package by running the command `install.packages("leaflet")`. Let's now look at a code example that demonstrates how to create your first Leaflet map in R. To create the map, first load the library by running `library(leaflet)`, and then execute the three commands provided.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(leaflet)
 my_map <- leaflet() %>%
 addTiles()
@@ -621,7 +622,8 @@ You can then zoom in as much as you like on the resulting map. The code includes
 
 We were able to quickly generate a JavaScript map widget without any knowledge of JavaScript using the Leaflet function, which creates a background layer. The `addTiles()` function adds mapping data from Open Street Map to the background. After adding this content, we can zoom in and explore the map. However, to add markers and direct interactivity, we need to use the `addMarkers()` function, which is very easy to use. We can specify the longitude and latitude of a location and add a label to the marker. In the example, we added a marker for Johns Hopkins hospital with the label "Jeff Leek's office". The piping notation was used, and although it can be a little strange at first, it's a cleaner and easier way to read the code. We can click on the marker to see Jeff Leek's office and zoom in to see the Bloomberg School of Public Health. Additionally, it is worth noting that the Bloomberg School of Public Health is the oldest School of Public Health in the country.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(leaflet)
 my_map <- my_map %>%
 addMarkers(lat=39.2980803, lng=-76.5898801, popup="Jeff Leek's Office")
@@ -651,7 +653,8 @@ We're using the pipe operator to pass `my_map` as the first argument to the `add
 
 To add a lot of markers, you can simply put the collection of markers in a data frame. Here's an example.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 set.seed(2023-05-29)
 df <- data.frame(lat = runif(20, min = 39.2, max = 39.3),
                  lng = runif(20, min = -76.6, max = -76.5))
@@ -668,7 +671,8 @@ Give it a try by creating your own data frame with random longitude and latitude
 
 In this section, we will cover two topics: adding custom markers and separate popups for each marker. We want to achieve this result, where each marker displays the Hopkins logo and has a separate popup. Here is an example of what we're aiming for.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(leaflet)
 hopkinsIcon <- makeIcon(
     iconUrl = "https://brand.jhu.edu/assets/uploads/sites/5/2016/01/university.logo_.small_.vertical.white_.png",
@@ -707,7 +711,8 @@ Sometimes you may have multiple points on a map very close to each other. Leafle
 
 Here is an example of what we're aiming for.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(leaflet)
 df <- data.frame(lat = runif(500, min = 39.25, max = 39.35),
                  lng = runif(500, min = -76.65, max = -76.55))
@@ -719,7 +724,8 @@ addMarkers(clusterOptions = markerClusterOptions())
 
 Additionally, we can add circle markers instead of adding markers or clusters by using the `addCircleMarkers` function. We can create a couple of 20 markers and add circle markers to them. This will display the markers as little circles.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(leaflet)
 df <- data.frame(lat = runif(20, min = 39.25, max = 39.35),
                  lng = runif(20, min = -76.65, max = -76.55))
@@ -733,7 +739,8 @@ addCircleMarkers()
 
 Now, let's discuss how to digitally draw shapes on your map. This can be accomplished using commands that allow you to draw circles and rectangles, and even add a legend to your map. These commands will enable you to annotate and draw on your map in useful ways. We will demonstrate how to draw a circle in a way that you might actually want to use. For example, we take a dataset of cities such as Baltimore, Frederick, Rockville, Gaithersburg,... along with their population, latitude, and longitude. We will pass this dataset to leaflet, add tiles to it, and then add circles to it using the addCircles command. We will also provide some important options such as scaling the radius relative to the population of the cities. This is a more reasonable use of adding circles than just having them as markers. Let's go ahead and run the code to see the result.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(leaflet)
 md_cities <- data.frame(name = c("Baltimore", "Frederick", "Rockville", "Gaithersburg", "Bowie", "Hagerstown", "Annapolis", "College Park","Salisbury", "Laurel"),
                         pop = c(619493, 66169, 62334, 61045, 55232, 39890, 38880, 30587,30484, 25346),
@@ -747,7 +754,8 @@ addCircles(weight = 1, radius = sqrt(md_cities$pop)*30)
 
 Alright, now we have the circles representing the population of the cities and we can see the relative sizes of the circles. Let's move on to drawing rectangles. We can use the `addRectangles()` command to do that. Here's an example where we're going to draw a rectangle around Baltimore city. For a rectangle, you just need to provide the coordinates of its two opposite corners. In this example, we're creating a rectangle around the Mountain View Corporate Center. So we'll define a bounding box that contains Baltimore and then use that to draw the rectangle.
 
-```{r eval=T, echo=T}
+```{r eval=F, echo=T}
+### FALSE
 library(leaflet)
 
 leaflet() %>%
@@ -758,7 +766,8 @@ addRectangles(lat1 = 37.3858, lng1 = -122.0595,
 
 Let's now add a legend to a map using the `addLegend` function. This is a common task when you want to differentiate between different annotations, such as circles and rectangles, using different colors and symbols, and want to provide a key for users to understand what each one means. When you add markers to your map, you may want to color them differently and add a legend to help the user understand what each color represents. In the following example, we have a data frame with 20 points, colored red, blue, or green. We pass the data frame to `leaflet()` and `add addCircleMarkers()` colored according to the random color we generated. In a real application, you would want to use colors that have a specific meaning. To add a legend, we use the same syntax as the legend command in base R plotting. We define labels, in this case just `LETTERS[1:3]`, and colors, which are blue, red, and green.
 
-```{r,eval=T, echo=T}
+```{r,eval=F, echo=T}
+### FALSE
 library(leaflet)
 df <- data.frame(lat = runif(20, min = 39.25, max = 39.35),
                  lng = runif(20, min = -76.65, max = -76.55),
