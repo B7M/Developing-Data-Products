@@ -3,7 +3,11 @@ knitr::opts_chunk$set(
   comment = '')
 ```
 
-
+```{r}
+pkgs <- c("plotly", "dplyr","tidyr","leaflet")
+install.packages(pkgs)
+library(pkgs)
+```
 # Second week
 
 During this module, we'll learn how to create Quarto files. We'll also explore `leaflet` and `plotly` and their usage to create interactive content.
