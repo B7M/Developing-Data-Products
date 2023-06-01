@@ -262,7 +262,7 @@ knitr::include_app("https://yihui.shinyapps.io/miniUI/",
   height = "600px")
 ```
 
-<iframe src="https://yihui.shinyapps.io/miniUI/?showcase=0" width="100%" height="600px"></iframe>
+<iframe src="https://yihui.shinyapps.io/miniUI/?showcase=0" width="672" height="600px"></iframe>
 
 
 It's important to note that there's nothing special about having the slider in the side bar panel and the text in the main panel. The order isn't significant either. The code for the slider and the output could be in different panels and still work fine. This is an important concept to keep in mind when working with Shiny and reactive expressions. You don't want to think about it running linearly like a regular R program because the server is running reactively and constantly going back and forth. To be comfortable with Shiny your mindset needs to change a bit from regular R programming. It's still a program, but it's more interactive. One thing to note is that if we were to label the text output \$text1 instead of \$text, it wouldn't display anything. This is because the UI is looking for text when it says textOutput. Similarly, if we were to label the slider \$slider1 instead of \$slider, it wouldn't display anything because the render text from the server function is looking for \$slider1, but the UI hasn't put out anything labeled slider1. It's important to remember that your labels need to match up for everything to work properly.
@@ -336,7 +336,7 @@ Welcome to the second lecture on Shiny. Today, we'll delve into the fascinating 
 
 What exactly is a reactive expression? Essentially, it's like a recipe that takes inputs from Shiny, manipulates them, and returns a value. However, due to the specific intricacies of Shiny, this requires some slightly unorthodox R coding. In particular, if you want isolated expressions that respond to input from your ui.r or ShinyUI function, they need to be wrapped as a reactive function. For instance, consider the scenario where we have two input boxes, labeled box one and box two, and we want to add the results from these boxes and assign the sum to a variable.
 
-![](resources/images/01-week_files/figure-docx/unnamed-chunk-10-1.png)<!-- -->
+<img src="resources/images/01-week_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 To ensure that this calculation is redone every time the input values change, we need to include it in a reactive statement.
 
