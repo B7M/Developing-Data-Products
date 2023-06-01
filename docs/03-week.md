@@ -316,7 +316,7 @@ mean
 ```
 ## function (x, ...) 
 ## UseMethod("mean")
-## <bytecode: 0x55823155c290>
+## <bytecode: 0x558cdada9560>
 ## <environment: namespace:base>
 ```
 
@@ -328,7 +328,7 @@ print
 ```
 ## function (x, ...) 
 ## UseMethod("print")
-## <bytecode: 0x558232ff2c60>
+## <bytecode: 0x558cdc83fc60>
 ## <environment: namespace:base>
 ```
 
@@ -357,8 +357,8 @@ show
 ## 
 ## function (object) 
 ## standardGeneric("show")
-## <bytecode: 0x558231e0d238>
-## <environment: 0x558231f36220>
+## <bytecode: 0x558cdc6c7d78>
+## <environment: 0x558cdb783220>
 ## Methods may be defined for arguments: object
 ## Use  showMethods("show")  for currently available ones.
 ## (This generic function excludes non-simple inheritance; see ?setIs)
@@ -465,7 +465,7 @@ x <- rnorm(100)
 plot(x)
 ```
 
-![](03-week_files/figure-docx/unnamed-chunk-20-1.png)<!-- -->
+<img src="03-week_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 Here we generate random normal data and call the `plot()` function. Since there's no numeric method for `plot()`, it calls the default method and creates a scatter plot. 
 
@@ -477,7 +477,7 @@ x <- as.ts(x) ## Convert to a time series object
 plot(x)
 ```
 
-![](03-week_files/figure-docx/unnamed-chunk-21-1.png)<!-- -->
+<img src="03-week_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 However, in the second example, we convert the random data into a time series object using the `as.ts()` function and call `plot(x)` in the exact same way as before. This time, the plot looks different and has a label on the x-axis called **time**. This is because there's a special plotting method for time series objects, and that method is being called here instead of the default method. If you frequently work with new data types, such as gene expression or spatial-temporal data, it may be necessary to create a new class and write methods for printing, showing, summarizing, or plotting the data. 
 
