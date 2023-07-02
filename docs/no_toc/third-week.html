@@ -509,12 +509,12 @@ Let’s examine our <strong>topten</strong> package. We can load it using the li
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="third-week.html#cb72-1" aria-hidden="true" tabindex="-1"></a>mean</span></code></pre></div>
 <pre><code>## function (x, ...) 
 ## UseMethod(&quot;mean&quot;)
-## &lt;bytecode: 0x5651f478c858&gt;
+## &lt;bytecode: 0x55e60e275820&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="third-week.html#cb74-1" aria-hidden="true" tabindex="-1"></a>print</span></code></pre></div>
 <pre><code>## function (x, ...) 
 ## UseMethod(&quot;print&quot;)
-## &lt;bytecode: 0x5651f3fc7128&gt;
+## &lt;bytecode: 0x55e60dab0160&gt;
 ## &lt;environment: namespace:base&gt;</code></pre>
 <p>These functions have almost no code associated with them except for a <code>UseMethod()</code> statement. The purpose of these generic functions is to find an appropriate method for a given data type. To see the available methods for a generic function, you can use the <code>methods()</code> function.</p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="third-week.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(mean)</span></code></pre></div>
@@ -527,8 +527,8 @@ Let’s examine our <strong>topten</strong> package. We can load it using the li
 ## 
 ## function (object) 
 ## standardGeneric(&quot;show&quot;)
-## &lt;bytecode: 0x5651f7e40d98&gt;
-## &lt;environment: 0x5651f3b52220&gt;
+## &lt;bytecode: 0x55e611928ae0&gt;
+## &lt;environment: 0x55e60d63b220&gt;
 ## Methods may be defined for arguments: object
 ## Use  showMethods(&quot;show&quot;)  for currently available ones.
 ## (This generic function excludes non-simple inheritance; see ?setIs)</code></pre>
