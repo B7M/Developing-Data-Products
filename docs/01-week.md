@@ -514,12 +514,10 @@ You might already be familiar with the first few lines of code, as we'll still b
 
 Be sure to avoid errors in your R code while making UI changes, as RStudio will show you X's in the code if you forget to close parentheses or add commas. Proper indentation and using a nice environment like RStudio will make the task easier.
 
-<img src="resources/images/resources/images/01-week_files/figure-html//1DKI3TzXsb8-ZrC1QkA1wwHHzfGaVKkPYgbuwv9fW-kY_g256d971af02_0_0.png" title="Alternative text" alt="Alternative text" width="480" />
-```
-{r, fig.alt="Alternative text", fig.height=4, fig.align='center', fig.cap='Figure 1: A caption'}
-
-```
-
+<div class="figure" style="text-align: center">
+<img src="resources/images/resources/images/01-week_files/figure-html//1DKI3TzXsb8-ZrC1QkA1wwHHzfGaVKkPYgbuwv9fW-kY_g256d971af02_0_0.png" alt="Alternative text" width="480" />
+<p class="caption">(\#fig:unnamed-chunk-18)Figure 1: A caption</p>
+</div>
 figure xxx
 
 Your homework is to create a tabbed user interface for Shiny. Finally, we'll go over some last comments about Shiny.
