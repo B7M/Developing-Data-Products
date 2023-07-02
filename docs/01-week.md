@@ -1,3 +1,4 @@
+
 # First week
 
 In this overview module, we'll go over some information and resources to help you get started and succeed in the course.
@@ -336,7 +337,7 @@ Welcome to the second lecture on Shiny. Today, we'll delve into the fascinating 
 
 What exactly is a reactive expression? Essentially, it's like a recipe that takes inputs from Shiny, manipulates them, and returns a value. However, due to the specific intricacies of Shiny, this requires some slightly unorthodox R coding. In particular, if you want isolated expressions that respond to input from your ui.r or ShinyUI function, they need to be wrapped as a reactive function. For instance, consider the scenario where we have two input boxes, labeled box one and box two, and we want to add the results from these boxes and assign the sum to a variable.
 
-<img src="resources/images/01-week_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="resources/images/resources/images/01-week_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 To ensure that this calculation is redone every time the input values change, we need to include it in a reactive statement.
 
@@ -513,6 +514,8 @@ You might already be familiar with the first few lines of code, as we'll still b
 
 Be sure to avoid errors in your R code while making UI changes, as RStudio will show you X's in the code if you forget to close parentheses or add commas. Proper indentation and using a nice environment like RStudio will make the task easier.
 
+<img src="resources/images/resources/images/01-week_files/figure-html//1DKI3TzXsb8-ZrC1QkA1wwHHzfGaVKkPYgbuwv9fW-kY_g256d971af02_0_0.png" title="Alternative text" alt="Alternative text" width="480" />
+
 figure xxx
 
 Your homework is to create a tabbed user interface for Shiny. Finally, we'll go over some last comments about Shiny.
@@ -627,7 +630,7 @@ The Shiny UI Editor is a user-friendly, visual tool designed to simplify the pro
 
 #### Your first app in ShinyUiEditor
 
-In this example, we'll demonstrate how to create a simple Shiny app using the Shiny Ui Editor. We'll start by creating a new Shiny app and then proceed to build the UI using the Shiny Ui Editor. Once we're done, we'll run the app to see how it looks. Let's get started! In the Rstudio call 'library(shinyuieditor)' and run the launch_editor(app_loc = "newApp"). You must provide a string as your app name to variable app_loc. This will create a folder in the directory with the string name you provided and open the Shiny Ui Editor in a new window in your browser and asks for you to choose some options to create a new Shiny app, steps are shown in the image below(xxx). Any update that you make in the Ui Editor will automatically update the app code itself. To follow the updates in UiEditor you can simply check the app in App Preview tab located on the bottom right of the Ui Editor window. (xxx) If you don't like the layout you can delete the elements and redesign the layout to your liking. You can customize the size of each grid with your mouse or providing values in pixel or the relative units by hovering mouse to the left side of the desired grid. To delete an element click on the element and select the delete button on the properties window on the right side of the windows. In the R code file you can import or generate your own data and use that to make plots instead of the default data. The beauty of the Ui Editor is that you have all the common elements that you can add to your app directly from the Ui Editor window. This will make your life easier and you can focus on the data analysis part of your app.
+In this example, we'll demonstrate how to create a simple Shiny app using the Shiny Ui Editor. We'll start by creating a new Shiny app and then proceed to build the UI using the Shiny Ui Editor. Once we're done, we'll run the app to see how it looks. Let's get started! In the Rstudio call `library(shinyuieditor)` and run the `launch_editor(app_loc = "newApp")`. You must provide a string as your app name to variable app_loc. This will create a folder in the directory with the string name you provided and open the Shiny Ui Editor in a new window in your browser and asks you to choose some options to create a new Shiny app, steps are shown in the image below(xxx). Any updates that you make in the Ui Editor will automatically update the app code itself. To follow the updates in UiEditor you can simply check the app in App Preview tab located on the bottom right of the Ui Editor window. (xxx) If you don't like the layout you can delete the elements and redesign the layout to your liking. You can customize the size of each grid with your mouse or providing values in pixel or the relative units by hovering mouse to the left side of the desired grid. To delete an element click on the element and select the delete button on the properties window on the right side of the windows. In the R code file you can import or generate your own data and use that to make plots instead of the default data. The beauty of the Ui Editor is that you have all the common elements that you can add to your app directly from the Ui Editor window. This will make your life easier and you can focus on the data analysis part of your app.
 
 ### Layouts
 
