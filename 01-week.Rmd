@@ -512,12 +512,11 @@ shinyServer(function(input, output) {
 
 You might already be familiar with the first few lines of code, as we'll still be using a sidebar layout. However, we can also create tabs within a single panel, or have a panel with tabs but no sidebar. And if you're feeling adventurous, we can even customize the UI with custom HTML. For our sidebar panel, we'll have three text input boxes labeled "box1", "box2", and "box3". The prompts for the user will be "Enter Tab 1 text", "Enter Tab 2 text", and "Enter Tab 3 text", respectively, with starting values of "Tab 1", "Tab 2", and "Tab 3". Moving on to the main panel, we'll be using `tabsetPanel` function, which is a nested user interface structure in Shiny. We'll use the `mainPanel` function with a `tabsetPanel` inside, specifying `type = "tabs"`. Within that, we'll have three `tabPanel` functions, each with a label indicating "Tab 1", "Tab 2", or "Tab 3", and a `textOutput` that will look for the corresponding output label from the `server.R` file. The `server.R` function will be a simple one, using `shinyServer` with `function(input, output)` arguments. We'll use `renderText` to display the text entered in each of the three input boxes. You can run the app and see how it works.
 
-Be sure to avoid errors in your R code while making UI changes, as RStudio will show you X's in the code if you forget to close parentheses or add commas. Proper indentation and using a nice environment like RStudio will make the task easier.
+Be sure to avoid errors in your R code while making UI changes, as RStudio will show you X's in the code if you forget to close parentheses or add commas as shown in Fig. 1. Proper indentation and using a nice environment like RStudio will make the task easier.
 
-```{r, fig.alt="Alternative text", fig.height=4, fig.align='center', fig.cap='Figure 1: A caption', echo = FALSE, outwidth = "100%"}
+```{r, fig.alt="Alternative text", fig.height=4, fig.align='center', fig.cap='A missing comma results in error mark on line 8', echo = FALSE, outwidth = "100%"}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1DKI3TzXsb8-ZrC1QkA1wwHHzfGaVKkPYgbuwv9fW-kY/edit?pli=1#slide=id.g256d971af02_0_0")
 ```
-figure xxx
 
 Your homework is to create a tabbed user interface for Shiny. Finally, we'll go over some last comments about Shiny.
 
