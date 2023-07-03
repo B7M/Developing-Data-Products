@@ -255,16 +255,14 @@ shinyServer(function(input, output) {
 })
 ```
 
-In Shiny, a function needs to have curly braces and it needs to be closed with both curly braces and the shiny server parenthesis. The function takes input from the UI, which is the shiny UI function. The function takes in \$slider and renders it, displaying the text. We can name the output text. In the UI.R, in the main Panel, we specify that the slider value is displayed and the text output is text. This ensures that the same text we labeled from the output in the server function will be displayed in the name panels. When we run the code, we can move the slider and see the slider value displayed.
+In Shiny, a function needs to have curly braces and it needs to be closed with both curly braces and the shiny server parenthesis. The function takes input from the UI, which is the shiny UI function. The function takes in \$slider and renders it, displaying the text. We can name the output text. In the UI.R, in the main Panel, we specify that the slider value is displayed and the text output is text. This ensures that the same text we labeled from the output in the server function will be displayed in the name panels. When we run the code, we can move the slider and see the slider value displayed. The following picture shows the slider app in action.
 
+<div class="figure" style="text-align: center">
+<img src="resources/images/resources/images/01-week_files/figure-html//1DKI3TzXsb8-ZrC1QkA1wwHHzfGaVKkPYgbuwv9fW-kY_g256d971af02_1_5.png" alt="Alternative text" width="384" />
+<p class="caption">(\#fig:unnamed-chunk-8)Screenshot of the running slider app</p>
+</div>
 
-```r
-knitr::include_app("https://yihui.shinyapps.io/miniUI/",
-  height = "600px")
-```
-
-<iframe src="https://yihui.shinyapps.io/miniUI/?showcase=0" width="672" height="600px"></iframe>
-
+We also include a [link](https://b7m-jh.shinyapps.io/newapp/) to this app, so you can play around with it.
 
 It's important to note that there's nothing special about having the slider in the side bar panel and the text in the main panel. The order isn't significant either. The code for the slider and the output could be in different panels and still work fine. This is an important concept to keep in mind when working with Shiny and reactive expressions. You don't want to think about it running linearly like a regular R program because the server is running reactively and constantly going back and forth. To be comfortable with Shiny your mindset needs to change a bit from regular R programming. It's still a program, but it's more interactive. One thing to note is that if we were to label the text output \$text1 instead of \$text, it wouldn't display anything. This is because the UI is looking for text when it says textOutput. Similarly, if we were to label the slider \$slider1 instead of \$slider, it wouldn't display anything because the render text from the server function is looking for \$slider1, but the UI hasn't put out anything labeled slider1. It's important to remember that your labels need to match up for everything to work properly.
 
@@ -515,7 +513,7 @@ You might already be familiar with the first few lines of code, as we'll still b
 Be sure to avoid errors in your R code while making UI changes, as RStudio will show you X's in the code if you forget to close parentheses or add commas as shown in Fig. 1. Proper indentation and using a nice environment like RStudio will make the task easier.
 
 <div class="figure" style="text-align: center">
-<img src="resources/images/resources/images/01-week_files/figure-html//1DKI3TzXsb8-ZrC1QkA1wwHHzfGaVKkPYgbuwv9fW-kY_g256d971af02_0_0.png" alt="Alternative text" width="480" />
+<img src="resources/images/resources/images/01-week_files/figure-html//1DKI3TzXsb8-ZrC1QkA1wwHHzfGaVKkPYgbuwv9fW-kY_g256d971af02_1_1.png" alt="Alternative text" width="384" />
 <p class="caption">(\#fig:unnamed-chunk-18)A missing comma results in error mark on line 8</p>
 </div>
 
