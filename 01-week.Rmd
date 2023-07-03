@@ -682,7 +682,7 @@ The Shiny UI Editor is a user-friendly, visual tool designed to simplify the pro
 
 In this example, we'll demonstrate how to create a simple Shiny app using the Shiny Ui Editor. We'll start by creating a new Shiny app and then proceed to build the UI using the Shiny Ui Editor. Once we're done, we'll run the app to see how it looks. Let's get started! In the Rstudio call `library(shinyuieditor)` and run the `launch_editor(app_loc = "App")`. You must provide a string as your app name to variable app_loc. This will create a folder in the directory with the string name you provided and open the Shiny Ui Editor in a new window in your browser and will ask you to choose an existing templates to create a new Shiny app.
 
-```{r, fig.alt="Alternative text", fig.height=4, fig.align='center', fig.cap='Steps after launch_editor(app_loc = "App") command', echo = FALSE, outwidth = "100%"}
+```{r, fig.alt="Alternative text", fig.height=6, fig.align='center', fig.cap='Steps after launch_editor(app_loc = "App") command', echo = FALSE, outwidth = "100%"}
 ottrpal::include_slide("https://docs.google.com/presentation/d/1DKI3TzXsb8-ZrC1QkA1wwHHzfGaVKkPYgbuwv9fW-kY/edit?pli=1#slide=id.g256d971af02_1_9")
 ```
 
