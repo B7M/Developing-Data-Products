@@ -316,7 +316,7 @@ mean
 ```
 ## function (x, ...) 
 ## UseMethod("mean")
-## <bytecode: 0x55f5c16f5858>
+## <bytecode: 0x564279bc7820>
 ## <environment: namespace:base>
 ```
 
@@ -328,7 +328,7 @@ print
 ```
 ## function (x, ...) 
 ## UseMethod("print")
-## <bytecode: 0x55f5c0f30128>
+## <bytecode: 0x564279402160>
 ## <environment: namespace:base>
 ```
 
@@ -357,8 +357,8 @@ show
 ## 
 ## function (object) 
 ## standardGeneric("show")
-## <bytecode: 0x55f5c4da82f8>
-## <environment: 0x55f5c0abb220>
+## <bytecode: 0x56427d27aae0>
+## <environment: 0x564278f8d220>
 ## Methods may be defined for arguments: object
 ## Use  showMethods("show")  for currently available ones.
 ## (This generic function excludes non-simple inheritance; see ?setIs)
